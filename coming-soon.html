@@ -8,7 +8,7 @@
     <!-- Google Fonts for Cormorant Garamond & Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Poppins:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Poppins:wght@200;300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
         /* Official Brand Fonts */
@@ -19,37 +19,50 @@
             font-style: normal;
         }
 
+        @font-face {
+            font-family: 'TrueTypewriter';
+            src: url('assets/fonts/truetypewriter.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+        }
+
         :root {
             /* Palette */
             --botanist-green: #1e421b;
-            --botanist-green-soft: #285424;
+            --botanist-green-light: #285424;
+            --botanist-green-rgb: 30, 66, 27;
             --accent-gold: #c7a77b;
+            --accent-gold-rgb: 199, 167, 123;
             
-            /* Dark Theme (Nocturne Canopy) */
+            /* Dark Theme (Nocturne Canopy - Default) */
             --dark-bg: #0b110e;
             --dark-text: #ffffff;
             --dark-text-muted: rgba(255, 255, 255, 0.65);
-            --dark-border: rgba(255, 255, 255, 0.12);
-            --dark-surface: #101814;
+            --dark-border: rgba(255, 255, 255, 0.14);
+            --dark-surface: #121a15;
+            --dark-card-bg: #141e18;
             
             /* Light Theme (Archival Parchment) */
             --light-bg: #f7f3eb;
-            --light-text: #17211a;
-            --light-text-muted: rgba(23, 33, 26, 0.68);
-            --light-border: #ded7c8;
+            --light-text: #1b261d;
+            --light-text-muted: rgba(27, 38, 29, 0.7);
+            --light-border: rgba(30, 66, 27, 0.16);
             --light-surface: #ffffff;
+            --light-card-bg: #ffffff;
             
-            /* Dynamic Variables (Default Dark) */
+            /* Dynamic Variables */
             --bg: var(--dark-bg);
             --text: var(--dark-text);
             --text-muted: var(--dark-text-muted);
             --border: var(--dark-border);
             --surface: var(--dark-surface);
+            --card-bg: var(--dark-card-bg);
             
             /* Typography */
-            --font-display: 'Cinzel', serif;
+            --font-display: 'Cinzel', 'Cormorant Garamond', Georgia, serif;
             --font-serif: 'Cormorant Garamond', Georgia, serif;
-            --font-sans: 'Poppins', -apple-system, sans-serif;
+            --font-sans: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'TrueTypewriter', monospace;
             
             --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -60,6 +73,7 @@
             --text-muted: var(--light-text-muted);
             --border: var(--light-border);
             --surface: var(--light-surface);
+            --card-bg: var(--light-card-bg);
         }
 
         * {
@@ -80,129 +94,479 @@
             font-weight: 300;
             line-height: 1.7;
             overflow-x: hidden;
-            transition: background-color 0.6s ease, color 0.6s ease;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
         /* -------------------------------------------------------------
-           MINIMALIST NAVIGATION BAR
+           KUMU BEACH REFERENCE SIGNATURE: COMMON-LINK (Expanding Underline)
         ------------------------------------------------------------- */
-        .top-nav {
+        .common-link {
+            position: relative;
+            width: fit-content;
+            display: inline-flex;
+            align-items: center;
+            font-family: var(--font-sans);
+            font-size: 11px;
+            line-height: 14px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: inherit;
+            text-decoration: none;
+            padding-bottom: 7px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .common-link::after {
+            content: "";
+            position: absolute;
+            background-color: var(--accent-gold);
+            height: 1.5px;
+            width: 24px;
+            bottom: 0;
+            left: 0;
+            transition: width 0.4s ease-in-out;
+        }
+
+        body.theme-light .common-link::after {
+            background-color: var(--botanist-green);
+        }
+
+        .common-link:hover {
+            color: var(--accent-gold);
+        }
+
+        body.theme-light .common-link:hover {
+            color: var(--botanist-green);
+        }
+
+        .common-link:hover::after {
+            width: 100%;
+        }
+
+        .common-link.white {
+            color: #ffffff;
+        }
+        .common-link.white::after {
+            background-color: #ffffff;
+        }
+
+        /* -------------------------------------------------------------
+           KUMU BEACH HEADER NAVIGATION (Clear Transparent with Hairline)
+        ------------------------------------------------------------- */
+        header.kumu-header {
+            position: relative;
+            width: 100%;
+        }
+
+        .navigation {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
+            width: 100%;
             z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 32px 6%;
+            background-color: transparent;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, top 0.4s ease;
+        }
+
+        /* Soft gradient underlay on hero */
+        .navigation::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 180px;
+            pointer-events: none;
+            opacity: 1;
+            z-index: -1;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%);
+            transition: opacity 0.4s ease;
+        }
+
+        /* Scrolled Header State */
+        .navigation.scrolled {
+            background-color: rgba(11, 17, 14, 0.96);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        body.theme-light .navigation.scrolled {
+            background-color: rgba(247, 243, 235, 0.96);
+            border-bottom: 1px solid rgba(30, 66, 27, 0.15);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.06);
+        }
+
+        .navigation.scrolled::after {
+            opacity: 0;
+        }
+
+        /* Left: Site Logo */
+        .site-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 3.2vw;
+            text-decoration: none;
+            color: inherit;
             transition: var(--transition);
         }
 
-        .top-nav.scrolled {
-            padding: 20px 6%;
-            background: rgba(11, 17, 14, 0.88);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-        }
-
-        body.theme-light .top-nav.scrolled {
-            background: rgba(247, 243, 235, 0.92);
-        }
-
-        .nav-brand {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .nav-logo-icon {
-            width: 26px;
-            height: 32px;
+        .site-logo-icon {
+            width: 24px;
+            height: 30px;
             object-fit: contain;
             transition: var(--transition);
         }
 
-        .nav-brand-title {
+        .site-logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .site-logo-title {
             font-family: var(--font-display);
-            font-size: 13px;
+            font-size: 13.5px;
             letter-spacing: 3.5px;
             text-transform: uppercase;
             font-weight: 500;
+            color: #ffffff;
+            line-height: 1.2;
+            transition: color 0.4s ease;
         }
 
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-        }
-
-        .nav-debut {
-            font-size: 10.5px;
-            letter-spacing: 2.5px;
+        .site-logo-subtitle {
+            font-size: 8.5px;
+            letter-spacing: 2px;
             text-transform: uppercase;
             opacity: 0.75;
+            color: #ffffff;
+            transition: color 0.4s ease;
         }
 
-        .nav-theme-btn {
+        body.theme-light .navigation.scrolled .site-logo-title,
+        body.theme-light .navigation.scrolled .site-logo-subtitle {
+            color: var(--botanist-green);
+        }
+
+        /* Center: Desktop Menu */
+        #desktop-menu {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 1.8vw;
+            margin: 0;
+            padding: 0;
+        }
+
+        #desktop-menu li a {
+            display: block;
+            font-size: 11px;
+            line-height: 14px;
+            letter-spacing: 2.4px;
+            text-transform: uppercase;
+            color: #ffffff;
+            font-weight: 400;
+            text-decoration: none;
+            padding: 24px 6px;
+            position: relative;
+            opacity: 0.88;
+            transition: opacity 0.3s ease, color 0.3s ease;
+        }
+
+        #desktop-menu li a::after {
+            content: "";
+            position: absolute;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 1px;
+            background-color: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+
+        #desktop-menu li a:hover {
+            opacity: 1;
+            color: #ffffff;
+        }
+
+        #desktop-menu li a:hover::after {
+            width: 80%;
+        }
+
+        body.theme-light .navigation.scrolled #desktop-menu li a {
+            color: var(--light-text);
+        }
+
+        body.theme-light .navigation.scrolled #desktop-menu li a:hover {
+            color: var(--botanist-green);
+        }
+
+        body.theme-light .navigation.scrolled #desktop-menu li a::after {
+            background-color: var(--botanist-green);
+        }
+
+        /* Right Nav Container */
+        .nav-right-cluster {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Mega-Menu Toggle (Hamburger + "MENU") */
+        .mega-menu-trigger {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             background: none;
             border: none;
-            color: inherit;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 22px 24px;
+            cursor: pointer;
+            font-family: var(--font-sans);
+            font-size: 10.5px;
+            letter-spacing: 2.2px;
+            text-transform: uppercase;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .mega-menu-trigger svg {
+            width: 17px;
+            height: 12px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.6;
+        }
+
+        .mega-menu-trigger:hover {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--accent-gold);
+        }
+
+        body.theme-light .navigation.scrolled .mega-menu-trigger {
+            border-left: 1px solid rgba(30, 66, 27, 0.15);
+            color: var(--light-text);
+        }
+
+        body.theme-light .navigation.scrolled .mega-menu-trigger:hover {
+            color: var(--botanist-green);
+            background: rgba(30, 66, 27, 0.04);
+        }
+
+        /* Theme Switcher Button */
+        .theme-toggle-btn {
+            background: none;
+            border: none;
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            padding: 21px 18px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
-            padding: 4px;
-        }
-
-        .nav-theme-btn:hover {
-            opacity: 1;
-        }
-
-        .nav-theme-btn svg {
-            width: 17px;
-            height: 17px;
-            fill: currentColor;
-        }
-
-        .nav-link {
-            font-size: 11px;
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
-            color: inherit;
-            text-decoration: none;
-            position: relative;
-            padding-bottom: 4px;
-            opacity: 0.85;
             transition: var(--transition);
         }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: currentColor;
-            transition: width 0.3s ease;
+        .theme-toggle-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
         }
 
-        .nav-link:hover {
-            opacity: 1;
+        .theme-toggle-btn:hover {
+            color: var(--accent-gold);
+            background: rgba(255, 255, 255, 0.06);
         }
 
-        .nav-link:hover::after {
-            width: 100%;
+        body.theme-light .navigation.scrolled .theme-toggle-btn {
+            border-left: 1px solid rgba(30, 66, 27, 0.15);
+            color: var(--light-text);
+        }
+
+        body.theme-light .navigation.scrolled .theme-toggle-btn:hover {
+            color: var(--botanist-green);
+        }
+
+        /* Kumu Beach Signature Solid Block Button: BOOK / PRIVATE REGISTER */
+        .kumu-book-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 22px 34px;
+            background-color: var(--botanist-green);
+            border: none;
+            border-left: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            font-family: var(--font-sans);
+            font-size: 11px;
+            line-height: 12px;
+            letter-spacing: 2.4px;
+            text-transform: uppercase;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .kumu-book-btn:hover {
+            background-color: var(--botanist-green-light);
+            color: var(--accent-gold);
+        }
+
+        body.theme-light .navigation.scrolled .kumu-book-btn {
+            background-color: var(--botanist-green);
+            border-left: 1px solid rgba(30, 66, 27, 0.15);
+            color: #ffffff;
+        }
+
+        body.theme-light .navigation.scrolled .kumu-book-btn:hover {
+            background-color: #2e6229;
+            color: #ffffff;
         }
 
         /* -------------------------------------------------------------
-           HERO SECTION (Pure Atmospheric Grandeur & Presence)
+           SLIDE-OUT MEGA MENU DRAWER (Kumu Beach Style)
+        ------------------------------------------------------------- */
+        .drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .drawer-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mega-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: min(440px, 90vw);
+            height: 100vh;
+            height: 100dvh;
+            background-color: var(--surface);
+            color: var(--text);
+            z-index: 2000;
+            padding: 60px 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: -8px 0 40px rgba(0, 0, 0, 0.35);
+            transform: translateX(100%);
+            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow-y: auto;
+        }
+
+        .mega-drawer.active {
+            transform: translateX(0);
+        }
+
+        .drawer-close-btn {
+            position: absolute;
+            top: 26px;
+            right: 28px;
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            padding: 8px;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .drawer-close-btn:hover {
+            opacity: 1;
+        }
+
+        .drawer-close-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        .drawer-brand {
+            margin-bottom: 40px;
+        }
+
+        .drawer-brand-title {
+            font-family: var(--font-display);
+            font-size: 16px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .drawer-brand-tag {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+        }
+
+        .drawer-menu-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .drawer-menu-list li a {
+            font-family: var(--font-serif);
+            font-size: 26px;
+            line-height: 1.2;
+            color: inherit;
+            text-decoration: none;
+            letter-spacing: 1px;
+            opacity: 0.85;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .drawer-menu-list li a:hover {
+            opacity: 1;
+            color: var(--accent-gold);
+            transform: translateX(6px);
+        }
+
+        body.theme-light .drawer-menu-list li a:hover {
+            color: var(--botanist-green);
+        }
+
+        .drawer-footer {
+            border-top: 1px solid var(--border);
+            padding-top: 24px;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            opacity: 0.7;
+            line-height: 1.8;
+        }
+
+        /* -------------------------------------------------------------
+           HERO SECTION (.main-banner, Full-bleed 100vh with Ambient Bubbles)
         ------------------------------------------------------------- */
         .hero {
             position: relative;
@@ -213,17 +577,10 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            padding: clamp(55px, 7vh, 85px) 6% clamp(14px, 2vh, 24px);
+            padding: clamp(75px, 10vh, 105px) 6% clamp(20px, 3vh, 32px);
             text-align: center;
             overflow: hidden;
             box-sizing: border-box;
-        }
-
-        @media (max-height: 780px) {
-            .hero {
-                padding-top: 55px;
-                padding-bottom: 12px;
-            }
         }
 
         .hero-bg {
@@ -235,14 +592,14 @@
             background-image: url('assets/images/botanist/hero-kandy-hills.jpg');
             background-size: cover;
             background-position: center 40%;
-            opacity: 0.36;
+            opacity: 0.38;
             z-index: 1;
-            filter: contrast(105%) saturate(85%);
+            filter: contrast(105%) saturate(90%);
             animation: gentleScale 24s infinite alternate ease-in-out;
         }
 
         body.theme-light .hero-bg {
-            opacity: 0.18;
+            opacity: 0.20;
             mix-blend-mode: multiply;
         }
 
@@ -272,11 +629,18 @@
         }
 
         body.theme-dark .hero-vignette {
-            background: radial-gradient(circle at center, rgba(11, 17, 14, 0.6) 0%, rgba(11, 17, 14, 0.94) 80%);
+            background: radial-gradient(circle at center, rgba(11, 17, 14, 0.55) 0%, rgba(11, 17, 14, 0.95) 85%);
         }
 
         body.theme-light .hero-vignette {
-            background: radial-gradient(circle at center, rgba(247, 243, 235, 0.68) 0%, rgba(247, 243, 235, 0.96) 80%);
+            background: radial-gradient(circle at center, rgba(247, 243, 235, 0.65) 0%, rgba(247, 243, 235, 0.96) 85%);
+        }
+
+        .hero-spacer-top {
+            height: 1px;
+            width: 100%;
+            visibility: hidden;
+            pointer-events: none;
         }
 
         .hero-center {
@@ -292,8 +656,8 @@
 
         /* The Official Brand Logo Sized with Grandeur & Stately Presence */
         .hero-logo-box {
-            width: clamp(240px, 26vw, 320px);
-            margin-bottom: clamp(14px, 2.2vh, 24px);
+            width: clamp(230px, 25vw, 310px);
+            margin-bottom: clamp(14px, 2vh, 22px);
             transition: var(--transition);
         }
 
@@ -301,7 +665,7 @@
             width: 100%;
             height: auto;
             display: block;
-            filter: drop-shadow(0 8px 24px rgba(0,0,0,0.3));
+            filter: drop-shadow(0 8px 24px rgba(0,0,0,0.35));
         }
 
         .hero-location-line {
@@ -319,12 +683,12 @@
 
         .hero-lead-quote {
             font-family: var(--font-serif);
-            font-size: clamp(21px, 2.4vw, 28px);
+            font-size: clamp(21px, 2.4vw, 27px);
             font-style: italic;
             font-weight: 300;
             line-height: 1.55;
             max-width: 780px;
-            margin-bottom: clamp(18px, 2.8vh, 30px);
+            margin-bottom: clamp(18px, 2.8vh, 28px);
             opacity: 0.95;
         }
 
@@ -334,7 +698,7 @@
             align-items: center;
             justify-content: center;
             gap: clamp(18px, 2.8vw, 32px);
-            margin-bottom: clamp(18px, 3vh, 30px);
+            margin-bottom: clamp(20px, 3.2vh, 30px);
             padding: 11px 0;
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
@@ -371,7 +735,7 @@
             font-size: 16px;
         }
 
-        /* Signature Editorial Link & Clean Button */
+        /* Signature Editorial Link & Clean Kumu Button */
         .hero-actions {
             display: flex;
             align-items: center;
@@ -404,44 +768,9 @@
         }
 
         .btn-minimal:hover {
-            background-color: var(--botanist-green-soft);
+            background-color: var(--botanist-green-light);
             border-color: var(--accent-gold);
             color: #ffffff;
-        }
-
-        .link-editorial {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            font-size: 11.5px;
-            letter-spacing: 2.5px;
-            text-transform: uppercase;
-            font-weight: 500;
-            text-decoration: none;
-            color: inherit;
-            padding-bottom: 6px;
-            opacity: 0.9;
-            transition: var(--transition);
-        }
-
-        .link-editorial::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 1px;
-            width: 32px;
-            background-color: currentColor;
-            transition: width 0.35s ease;
-        }
-
-        .link-editorial:hover {
-            opacity: 1;
-        }
-
-        .link-editorial:hover::after {
-            width: 100%;
         }
 
         /* Hero Bottom Scroll Cue with Dedicated Footer */
@@ -500,7 +829,6 @@
             50%, 100% { transform: translateY(100%); }
         }
 
-        /* Compact scaling for shorter viewports (e.g. 1366x768 with browser bars) */
         @media (max-height: 760px) {
             .hero-logo-box {
                 width: 240px;
@@ -529,167 +857,373 @@
         }
 
         /* -------------------------------------------------------------
-           SECTION: THE WORTHINGTON HERITAGE (Pure Editorial Narrative)
+           SECTION 1: THE WELCOME / ESTATE HERITAGE (.hm-prop-welcome)
+           (Asymmetric Overlapping Architectural Layout matching Kumu)
         ------------------------------------------------------------- */
-        .story-section {
-            padding: 140px 6% 120px;
-            max-width: 1160px;
-            margin: 0 auto;
+        .hm-prop-welcome {
+            position: relative;
+            padding: 120px 6% 100px;
+            background-color: var(--bg);
         }
 
-        .story-eyebrow {
+        .welcome-inner {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
+            gap: 60px;
+            position: relative;
+        }
+
+        .welcome-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            padding: clamp(36px, 5vw, 64px);
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-eyebrow {
+            display: block;
             font-size: 11px;
             letter-spacing: 4px;
             text-transform: uppercase;
             color: var(--accent-gold);
+            font-weight: 500;
+            margin-bottom: 18px;
+        }
+
+        body.theme-light .section-eyebrow {
+            color: var(--botanist-green);
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(26px, 3.2vw, 42px);
+            line-height: 1.25;
+            letter-spacing: 2px;
+            font-weight: 500;
+            text-transform: uppercase;
             margin-bottom: 24px;
-            display: block;
+            color: var(--text);
         }
 
-        body.theme-light .story-eyebrow {
-            color: var(--botanist-green);
-        }
-
-        .story-lead {
-            font-family: var(--font-serif);
-            font-size: clamp(28px, 4.2vw, 46px);
-            font-weight: 300;
-            line-height: 1.35;
-            margin-bottom: 64px;
-            max-width: 960px;
-            letter-spacing: 0.5px;
-        }
-
-        body.theme-light .story-lead {
-            color: var(--botanist-green);
-        }
-
-        .story-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: start;
-            margin-bottom: 90px;
-        }
-
-        .story-col-text {
+        .section-description {
             font-size: 15px;
-            line-height: 2.0;
-            color: var(--text-muted);
-            font-weight: 300;
-        }
-
-        .story-col-text p {
+            line-height: 1.85;
+            opacity: 0.86;
             margin-bottom: 24px;
         }
 
-        .story-author-note {
+        .worthington-quote {
             font-family: var(--font-serif);
             font-style: italic;
             font-size: 18px;
-            color: var(--text);
-            margin-top: 32px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border);
+            line-height: 1.6;
+            padding-left: 20px;
+            border-left: 2px solid var(--accent-gold);
+            margin: 24px 0 32px;
+            opacity: 0.9;
         }
 
-        /* Wide Asymmetrical Photograph */
-        .story-image-wrap {
+        body.theme-light .worthington-quote {
+            border-left-color: var(--botanist-green);
+        }
+
+        .welcome-image-col {
             position: relative;
-            overflow: hidden;
-            width: 100%;
-            height: 480px;
-            border: 1px solid var(--border);
-            margin-bottom: 14px;
+            z-index: 1;
         }
 
-        .story-image {
+        .welcome-image-wrap {
+            position: relative;
+            width: 100%;
+            height: clamp(420px, 48vw, 620px);
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .welcome-image-wrap img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
-            filter: contrast(102%) saturate(90%);
             transition: transform 1.2s ease;
         }
 
-        .story-image-wrap:hover .story-image {
-            transform: scale(1.03);
+        .welcome-image-wrap:hover img {
+            transform: scale(1.04);
         }
 
-        .story-image-caption {
-            font-size: 11px;
+        .image-caption-tag {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            background: rgba(11, 17, 14, 0.75);
+            backdrop-filter: blur(8px);
+            padding: 6px 14px;
+            font-size: 9.5px;
             letter-spacing: 2px;
             text-transform: uppercase;
-            opacity: 0.6;
+            color: #ffffff;
         }
 
         /* -------------------------------------------------------------
-           SECTION: AT A GLANCE (Architectural Coordinates Grid)
+           SECTION 2: ACCOMMODATION SHOWCASE (.hm-accommodation-section)
         ------------------------------------------------------------- */
-        .coordinates-section {
+        .hm-accommodation-section {
+            padding: 100px 6% 110px;
+            background-color: var(--surface);
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
-            padding: 50px 6%;
-            max-width: 1200px;
-            margin: 0 auto;
         }
 
-        .coordinates-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 32px;
-        }
-
-        .coord-item {
+        .section-header-row {
+            max-width: 1300px;
+            margin: 0 auto 50px;
             display: flex;
-            flex-direction: column;
-            gap: 8px;
+            align-items: flex-end;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
-        .coord-num {
-            font-size: 10px;
-            letter-spacing: 2px;
-            color: var(--accent-gold);
-            text-transform: uppercase;
-            font-weight: 400;
-        }
-
-        body.theme-light .coord-num {
-            color: var(--botanist-green);
-        }
-
-        .coord-title {
+        .section-header-title {
             font-family: var(--font-display);
-            font-size: 13px;
-            letter-spacing: 2px;
+            font-size: clamp(24px, 2.8vw, 36px);
+            letter-spacing: 3px;
             text-transform: uppercase;
             font-weight: 500;
         }
 
-        .coord-desc {
-            font-size: 13px;
-            color: var(--text-muted);
-            line-height: 1.6;
-            font-weight: 300;
+        .accommodation-grid {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 36px;
+        }
+
+        .suite-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .suite-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.15);
+        }
+
+        .suite-image-wrap {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .suite-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .suite-card:hover .suite-image-wrap img {
+            transform: scale(1.06);
+        }
+
+        .suite-content {
+            padding: 30px 28px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .suite-tagline {
+            font-size: 10px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: 10px;
+        }
+
+        body.theme-light .suite-tagline {
+            color: var(--botanist-green);
+        }
+
+        .suite-title {
+            font-family: var(--font-display);
+            font-size: 18px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+            font-weight: 500;
+        }
+
+        .suite-desc {
+            font-size: 13.5px;
+            line-height: 1.7;
+            opacity: 0.8;
+            margin-bottom: 26px;
         }
 
         /* -------------------------------------------------------------
-           SECTION: PRIVATE REGISTER (Quiet, Refined Lead Capture)
+           SECTION 3: BOTANICAL HERITAGE FOLIO (.hm-privileges-section)
         ------------------------------------------------------------- */
-        .register-section {
-            padding: 130px 6% 110px;
-            max-width: 680px;
-            margin: 0 auto;
+        .hm-privileges-section {
+            padding: 100px 6%;
+            background-color: var(--bg);
+        }
+
+        .privileges-header {
+            max-width: 800px;
+            margin: 0 auto 60px;
             text-align: center;
         }
 
+        .privileges-grid {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 28px;
+        }
+
+        .privilege-card {
+            border: 1px solid var(--border);
+            padding: 36px 28px;
+            background-color: var(--card-bg);
+            transition: border-color 0.3s ease;
+        }
+
+        .privilege-card:hover {
+            border-color: var(--accent-gold);
+        }
+
+        body.theme-light .privilege-card:hover {
+            border-color: var(--botanist-green);
+        }
+
+        .privilege-num {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: var(--accent-gold);
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        body.theme-light .privilege-num {
+            color: var(--botanist-green);
+        }
+
+        .privilege-title {
+            font-family: var(--font-display);
+            font-size: 16px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .privilege-text {
+            font-size: 13px;
+            line-height: 1.75;
+            opacity: 0.8;
+        }
+
+        /* -------------------------------------------------------------
+           SECTION 4: EXPERIENCES & RETREAT (.hm-experiences-section)
+        ------------------------------------------------------------- */
+        .hm-experiences-section {
+            padding: 110px 6%;
+            background-color: var(--surface);
+            border-top: 1px solid var(--border);
+        }
+
+        .experiences-grid {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 36px;
+        }
+
+        .experience-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .experience-img-wrap {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .experience-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .experience-item:hover .experience-img-wrap img {
+            transform: scale(1.05);
+        }
+
+        .experience-title {
+            font-family: var(--font-display);
+            font-size: 17px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .experience-text {
+            font-size: 13.5px;
+            line-height: 1.75;
+            opacity: 0.82;
+            margin-bottom: 20px;
+        }
+
+        /* -------------------------------------------------------------
+           SECTION 5: PRIVATE REGISTER FORM (.hm-register-section)
+           (Kumu Beach styled Reservation Panel)
+        ------------------------------------------------------------- */
+        .hm-register-section {
+            padding: 120px 6% 130px;
+            background-color: var(--bg);
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .register-container {
+            max-width: 780px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: clamp(36px, 6vw, 68px);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+        }
+
         .register-eyebrow {
-            font-size: 10.5px;
+            font-size: 11px;
             letter-spacing: 4px;
             text-transform: uppercase;
             color: var(--accent-gold);
-            margin-bottom: 18px;
+            font-weight: 500;
             display: block;
+            margin-bottom: 16px;
         }
 
         body.theme-light .register-eyebrow {
@@ -698,192 +1232,337 @@
 
         .register-heading {
             font-family: var(--font-display);
-            font-size: clamp(26px, 3.5vw, 36px);
-            letter-spacing: 3px;
+            font-size: clamp(24px, 3.2vw, 38px);
+            letter-spacing: 2px;
             text-transform: uppercase;
             font-weight: 500;
-            margin-bottom: 16px;
-        }
-
-        body.theme-light .register-heading {
-            color: var(--botanist-green);
+            margin-bottom: 18px;
         }
 
         .register-intro {
-            font-size: 14px;
+            font-size: 14.5px;
             line-height: 1.8;
-            color: var(--text-muted);
-            margin-bottom: 40px;
-            font-weight: 300;
+            opacity: 0.85;
+            max-width: 620px;
+            margin: 0 auto 36px;
         }
 
-        /* Single-line Minimal Form */
-        .register-form-row {
-            display: flex;
-            align-items: stretch;
-            width: 100%;
-            border: 1px solid var(--border);
-            transition: var(--transition);
+        .kumu-form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            text-align: left;
             margin-bottom: 24px;
         }
 
-        .register-form-row:focus-within {
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-label {
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.75;
+        }
+
+        .kumu-input,
+        .kumu-select {
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: inherit;
+            font-family: var(--font-sans);
+            font-size: 13px;
+            padding: 14px 16px;
+            outline: none;
+            border-radius: 0;
+            transition: border-color 0.3s ease;
+        }
+
+        .kumu-input:focus,
+        .kumu-select:focus {
             border-color: var(--accent-gold);
         }
 
-        body.theme-light .register-form-row:focus-within {
+        body.theme-light .kumu-input:focus,
+        body.theme-light .kumu-select:focus {
             border-color: var(--botanist-green);
         }
 
-        .register-input {
-            flex: 1;
-            padding: 16px 20px;
-            background: transparent;
-            border: none;
-            outline: none;
-            font-family: var(--font-sans);
-            font-size: 13px;
-            color: inherit;
-            letter-spacing: 0.5px;
+        .kumu-select option {
+            background-color: var(--surface);
+            color: var(--text);
         }
 
-        .register-input::placeholder {
-            color: var(--text-muted);
-            opacity: 0.7;
-        }
-
-        .register-submit {
-            padding: 0 28px;
-            background: var(--botanist-green);
+        .register-submit-btn {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--botanist-green);
             color: #ffffff;
-            border: none;
+            border: 1px solid var(--botanist-green);
             font-family: var(--font-sans);
-            font-size: 10.5px;
-            letter-spacing: 2px;
+            font-size: 11.5px;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            font-weight: 400;
+            font-weight: 500;
             cursor: pointer;
+            border-radius: 0;
             transition: var(--transition);
-            white-space: nowrap;
+            margin-top: 8px;
         }
 
-        .register-submit:hover {
-            background-color: var(--botanist-green-soft);
+        .register-submit-btn:hover {
+            background-color: var(--botanist-green-light);
+            border-color: var(--accent-gold);
             color: var(--accent-gold);
         }
 
-        /* Success Message */
         .register-success-msg {
             display: none;
+            padding: 24px;
+            background: rgba(30, 66, 27, 0.2);
+            border: 1px solid var(--botanist-green);
+            color: inherit;
             font-family: var(--font-serif);
-            font-size: 17px;
+            font-size: 18px;
             font-style: italic;
-            color: var(--accent-gold);
-            padding: 18px 0;
-            animation: fadeIn 0.6s ease forwards;
+            margin-top: 20px;
         }
 
-        body.theme-light .register-success-msg {
-            color: var(--botanist-green);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Concierge direct links */
         .concierge-links {
+            margin-top: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 28px;
+            gap: 32px;
             flex-wrap: wrap;
-            margin-top: 16px;
         }
 
         /* -------------------------------------------------------------
-           FOOTER (Quiet Luxury)
+           FOOTER (Kumu Beach Structured Multi-Column Footer)
         ------------------------------------------------------------- */
-        .footer {
-            padding: 50px 6%;
+        footer.kumu-footer {
+            background-color: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 80px 6% 40px;
+        }
+
+        .footer-top-row {
+            max-width: 1300px;
+            margin: 0 auto 60px;
+            display: grid;
+            grid-template-columns: 1.5fr repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .footer-brand-col {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer-logo {
+            width: 160px;
+            height: auto;
+            margin-bottom: 8px;
+        }
+
+        .footer-tagline {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 15px;
+            line-height: 1.6;
+            opacity: 0.85;
+            max-width: 320px;
+        }
+
+        .footer-col-title {
+            font-family: var(--font-display);
+            font-size: 12px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .footer-links-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links-list li a {
+            font-size: 12.5px;
+            letter-spacing: 1px;
+            color: inherit;
+            text-decoration: none;
+            opacity: 0.75;
+            transition: var(--transition);
+        }
+
+        .footer-links-list li a:hover {
+            opacity: 1;
+            color: var(--accent-gold);
+            transform: translateX(3px);
+        }
+
+        body.theme-light .footer-links-list li a:hover {
+            color: var(--botanist-green);
+        }
+
+        .footer-contact-info {
+            font-size: 12.5px;
+            line-height: 1.8;
+            opacity: 0.78;
+        }
+
+        .footer-bottom-bar {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding-top: 32px;
             border-top: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 16px;
             font-size: 11px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            opacity: 0.65;
         }
 
-        /* Responsive */
-        @media (max-width: 900px) {
-            .story-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-            .coordinates-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 28px;
-            }
-            .nav-debut {
+        /* -------------------------------------------------------------
+           RESPONSIVE BREAKPOINTS
+        ------------------------------------------------------------- */
+        @media (max-width: 1024px) {
+            #desktop-menu {
                 display: none;
             }
-            .hero-actions {
-                flex-direction: column;
-                gap: 20px;
+            .welcome-inner {
+                grid-template-columns: 1fr;
             }
-            .story-image-wrap {
-                height: 320px;
+            .accommodation-grid,
+            .privileges-grid,
+            .experiences-grid {
+                grid-template-columns: 1fr;
             }
-            .register-form-row {
-                flex-direction: column;
-            }
-            .register-submit {
-                padding: 16px;
+            .footer-top-row {
+                grid-template-columns: 1fr 1fr;
             }
         }
 
-        @media (max-width: 600px) {
-            .coordinates-grid {
+        @media (max-width: 680px) {
+            .kumu-form-grid {
+                grid-template-columns: 1fr;
+            }
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+            .footer-top-row {
                 grid-template-columns: 1fr;
             }
             .countdown-strip {
-                gap: 14px;
+                gap: 12px;
             }
             .countdown-val {
-                font-size: 16px;
+                font-size: 17px;
+            }
+            .site-logo-subtitle {
+                display: none;
+            }
+            .kumu-book-btn {
+                padding: 18px 20px;
+                font-size: 10px;
+            }
+            .mega-menu-trigger {
+                padding: 18px 16px;
             }
         }
     </style>
 </head>
 <body class="theme-dark">
 
-    <!-- MINIMALIST NAVIGATION -->
-    <header class="top-nav" id="topNav">
-        <a href="#" class="nav-brand">
-            <!-- Nav Emblem: White on dark, Green on light -->
-            <img id="navLogo" class="nav-logo-icon" src="assets/botanist/botanist-emblem-white.svg" alt="The Botanist House Emblem">
-            <span class="nav-brand-title">The Botanist House</span>
-        </a>
+    <!-- KUMU BEACH CLEAR TRANSPARENT HEADER -->
+    <header class="kumu-header">
+        <nav class="navigation" id="mainNav">
+            <!-- Left: Official Logo -->
+            <a href="#" class="site-logo">
+                <img id="navLogo" class="site-logo-icon" src="assets/botanist/botanist-emblem-white.svg" alt="The Botanist House">
+                <div class="site-logo-text">
+                    <span class="site-logo-title">The Botanist House</span>
+                    <span class="site-logo-subtitle">Kandy Hills &bull; Sri Lanka</span>
+                </div>
+            </a>
 
-        <div class="nav-right">
-            <span class="nav-debut">Opening January 2027</span>
+            <!-- Center: Desktop Menu Links -->
+            <ul id="desktop-menu">
+                <li><a href="#welcome">The Estate</a></li>
+                <li><a href="#accommodation">Suites</a></li>
+                <li><a href="#heritage">Arboretum</a></li>
+                <li><a href="#experiences">Experiences</a></li>
+                <li><a href="#register">Register</a></li>
+            </ul>
 
-            <!-- Minimal Theme Switcher (Sun / Moon) -->
-            <button class="nav-theme-btn" id="themeBtn" onclick="toggleTheme()" title="Switch Light (Parchment) / Dark (Nocturne)">
-                <svg id="themeIcon" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
-            </button>
+            <!-- Right: Menu Drawer Toggle + Theme Toggle + Kumu Block Button -->
+            <div class="nav-right-cluster">
+                <!-- Theme Toggle -->
+                <button class="theme-toggle-btn" id="themeBtn" onclick="toggleTheme()" title="Switch Light (Parchment) / Dark (Nocturne)">
+                    <svg id="themeIcon" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
+                </button>
 
-            <a href="#register" class="nav-link">Private Register</a>
-        </div>
+                <!-- Hamburger MENU Button -->
+                <button class="mega-menu-trigger" onclick="toggleDrawer()" aria-label="Open Site Menu">
+                    <svg viewBox="0 0 18 12">
+                        <line x1="0" y1="1" x2="18" y2="1"/>
+                        <line x1="0" y1="6" x2="18" y2="6"/>
+                        <line x1="0" y1="11" x2="18" y2="11"/>
+                    </svg>
+                    <span>MENU</span>
+                </button>
+
+                <!-- Kumu Signature Solid Rectangular Block Button -->
+                <a href="#register" class="kumu-book-btn">
+                    <span>PRIVATE REGISTER</span>
+                </a>
+            </div>
+        </nav>
     </header>
 
-    <!-- HERO VIEWPORT (Less is More, Pure Luxury Presence) -->
-    <section class="hero">
+    <!-- SLIDE-OUT MEGA MENU DRAWER (Kumu Reference) -->
+    <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
+    <aside class="mega-drawer" id="megaDrawer">
+        <div>
+            <button class="drawer-close-btn" onclick="toggleDrawer()" aria-label="Close Navigation">
+                <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+            <div class="drawer-brand">
+                <div class="drawer-brand-title">The Botanist House</div>
+                <div class="drawer-brand-tag">Opening January 2027 &bull; Kandy Hills</div>
+            </div>
+            <ul class="drawer-menu-list">
+                <li><a href="#welcome" onclick="toggleDrawer()">01 &mdash; The Worthington Estate</a></li>
+                <li><a href="#accommodation" onclick="toggleDrawer()">02 &mdash; Suites &amp; Residences</a></li>
+                <li><a href="#heritage" onclick="toggleDrawer()">03 &mdash; Arboretum Specimen Folio</a></li>
+                <li><a href="#experiences" onclick="toggleDrawer()">04 &mdash; Hill Experiences &amp; Dining</a></li>
+                <li><a href="#register" onclick="toggleDrawer()">05 &mdash; Join Private Register</a></li>
+            </ul>
+        </div>
+        <div class="drawer-footer">
+            <div>Hanthana Mountain Range, Kandy, Sri Lanka</div>
+            <div>concierge@thebotanisthouse.com &bull; +94 81 223 4567</div>
+        </div>
+    </aside>
+
+    <!-- HERO VIEWPORT (.main-banner, Full-bleed 100vh with Ambient Bubbles) -->
+    <section class="hero" id="hero">
         <div class="hero-bg"></div>
         <div class="hero-vignette"></div>
         <canvas id="botanical-canvas"></canvas>
@@ -925,113 +1604,323 @@
                 </div>
             </div>
 
-            <!-- Restrained Actions -->
+            <!-- Kumu Beach Styled Actions -->
             <div class="hero-actions">
-                <a href="#register" class="btn-minimal">Join Private Register</a>
-                <a href="#story" class="link-editorial">The Worthington Story &rarr;</a>
+                <a href="#register" class="btn-minimal">JOIN PRIVATE REGISTER</a>
+                <a href="#welcome" class="common-link">THE WORTHINGTON STORY &rarr;</a>
             </div>
         </div>
 
         <!-- Dedicated Editorial Explore Scroll Cue -->
         <div class="hero-footer">
-            <a href="#story" class="hero-scroll-cue" aria-label="Explore The Botanist House">
+            <a href="#welcome" class="hero-scroll-cue" aria-label="Explore The Botanist House">
                 <span>Explore</span>
                 <span class="scroll-cue-indicator"></span>
             </a>
         </div>
     </section>
 
-    <!-- SECTION: THE STORY & EDITORIAL (Spacious & Poetic) -->
-    <section class="story-section" id="story">
-        <span class="story-eyebrow">Estate Heritage &bull; Ceylon Trees (1959)</span>
-        
-        <h2 class="story-lead">
-            Tucked away in the beautiful hills of Kandy, The Botanist House is an intimate retreat secluded five minutes from the city centre.
-        </h2>
-
-        <div class="story-grid">
-            <div class="story-col-text">
-                <p>
-                    The private terraces of the rooms and the pool offer beautiful views of the magnificent trees surrounding the property, many of which were planted in the 1940s by T. B. Worthington, the renowned botanist and author of <em>Ceylon Trees (1959)</em>, who once called this very place home.
+    <!-- SECTION 1: THE WELCOME / ESTATE HERITAGE (.hm-prop-welcome, Kumu Asymmetric 2-Col) -->
+    <section class="hm-prop-welcome" id="welcome">
+        <div class="welcome-inner">
+            <!-- Left Overlapping Card -->
+            <div class="welcome-card">
+                <span class="section-eyebrow">Estate Heritage &bull; Ceylon Trees (1959)</span>
+                <h2 class="section-title">An Intimate Botanical Retreat in the Kandy Hills</h2>
+                <p class="section-description">
+                    Tucked away in the beautiful hills of Kandy, The Botanist House is an intimate luxury retreat secluded five minutes from the city centre. The private terraces of the rooms and the pool offer breathtaking views of the magnificent trees surrounding the property.
                 </p>
-                <p>
-                    Today, his legacy lives on through the lush natural surroundings, giving the property a unique connection to Sri Lanka’s botanical heritage.
+                <p class="section-description">
+                    Many of these specimens were planted in the 1940s by T. B. Worthington, the renowned botanist and author of <em>Ceylon Trees (1959)</em>, who once called this very estate home. Today, his legacy lives on through the lush protected surroundings, offering guests a rare living connection to Sri Lanka’s botanical heritage.
                 </p>
-                <div class="story-author-note">
-                    &mdash; T. B. Worthington, Botanist &amp; Author
+                <div class="worthington-quote">
+                    &ldquo;To live among ancient trees is to understand time itself.&rdquo;
+                    <div style="font-family: var(--font-sans); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin-top: 6px; opacity: 0.7; font-style: normal;">
+                        &mdash; T. B. Worthington, Ceylon Trees (1959)
+                    </div>
                 </div>
+                <a href="#heritage" class="common-link">READ THE HERITAGE FOLIO &rarr;</a>
             </div>
 
+            <!-- Right Photography Column -->
+            <div class="welcome-image-col">
+                <div class="welcome-image-wrap">
+                    <img src="assets/images/botanist/worthington-canopy-feature.jpg" alt="Ancient Worthington tree canopy at The Botanist House">
+                    <span class="image-caption-tag">1940s Historic Grove &bull; Kandy</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: ACCOMMODATION SHOWCASE (.hm-accommodation-section) -->
+    <section class="hm-accommodation-section" id="accommodation">
+        <div class="section-header-row">
             <div>
-                <div class="story-image-wrap">
-                    <img class="story-image" src="assets/images/botanist/worthington-canopy-feature.jpg" alt="1940s Historic Tree Canopy of The Botanist House">
+                <span class="section-eyebrow">SANCTUARIES OF CALM</span>
+                <h2 class="section-header-title">Accommodation &amp; Suites</h2>
+            </div>
+            <a href="#register" class="common-link">DEBUTING JANUARY 2027 &rarr;</a>
+        </div>
+
+        <div class="accommodation-grid">
+            <!-- Suite 1 -->
+            <div class="suite-card">
+                <div class="suite-image-wrap">
+                    <img src="assets/images/Oceanview-Suites-630x610-1.jpg" alt="The Worthington Master Suite">
                 </div>
-                <span class="story-image-caption">The 1940s Historic Grove &bull; Kandy, Sri Lanka</span>
+                <div class="suite-content">
+                    <div>
+                        <span class="suite-tagline">Panoramic Mountain Veranda &bull; King</span>
+                        <h3 class="suite-title">The Worthington Master Suite</h3>
+                        <p class="suite-desc">
+                            Expansive private terrace overlooking the Hanthana misty range. Features curated 1940s botanical folio illustrations, a private reading salon, hand-carved Ceylon teak furnishings, and personal estate concierge service.
+                        </p>
+                    </div>
+                    <a href="#register" class="common-link">INQUIRE SUITE &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Suite 2 -->
+            <div class="suite-card">
+                <div class="suite-image-wrap">
+                    <img src="assets/images/Copy-of-tropical-studio-0038-4-1.jpg" alt="Canopy Veranda Suite">
+                </div>
+                <div class="suite-content">
+                    <div>
+                        <span class="suite-tagline">80-Year Ironwood Canopy View &bull; Plunge Deck</span>
+                        <h3 class="suite-title">Canopy Veranda Suite</h3>
+                        <p class="suite-desc">
+                            Perched high into the upper tree canopy. Wake to dawn birdsong and mountain mists, featuring an open-air rainwater shower, a cantilevered wooden veranda hovering above the arboretum, and natural linens.
+                        </p>
+                    </div>
+                    <a href="#register" class="common-link">INQUIRE SUITE &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Suite 3 -->
+            <div class="suite-card">
+                <div class="suite-image-wrap">
+                    <img src="assets/images/Kumu-Bedroom-630x610-1.jpg" alt="Arboretum Garden Residence">
+                </div>
+                <div class="suite-content">
+                    <div>
+                        <span class="suite-tagline">Ground Garden Walkout &bull; Stone Bath</span>
+                        <h3 class="suite-title">Arboretum Garden Residence</h3>
+                        <p class="suite-desc">
+                            Direct step-out access to the heritage specimen trail. Surrounded by heirloom Champaca and Dipterocarpus flora, with an outdoor soaking bath secluded by bamboo privacy screens and night-blooming jasmine.
+                        </p>
+                    </div>
+                    <a href="#register" class="common-link">INQUIRE SUITE &rarr;</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- SECTION: AT A GLANCE (Architectural Coordinates) -->
-    <section class="coordinates-section">
-        <div class="coordinates-grid">
-            <div class="coord-item">
-                <span class="coord-num">01 / Location</span>
-                <h3 class="coord-title">Kandy Hills</h3>
-                <p class="coord-desc">Secluded mountain sanctuary just five minutes from Kandy city centre.</p>
+    <!-- SECTION 3: THE SPECIMEN FOLIO / PRIVILEGES (.hm-privileges-section) -->
+    <section class="hm-privileges-section" id="heritage">
+        <div class="privileges-header">
+            <span class="section-eyebrow">ARCHITECTURAL COORDINATES</span>
+            <h2 class="section-title">The Estate Arboretum Heritage</h2>
+            <p class="section-description">
+                Four living hallmarks that define The Botanist House as Sri Lanka’s most distinctive botanical sanctuary.
+            </p>
+        </div>
+
+        <div class="privileges-grid">
+            <div class="privilege-card">
+                <span class="privilege-num">01 / ARBORETUM</span>
+                <h3 class="privilege-title">80+ Year Protected Grove</h3>
+                <p class="privilege-text">
+                    Planted in the 1940s by botanist T. B. Worthington. A living botanical archive preserved across generations.
+                </p>
             </div>
-            <div class="coord-item">
-                <span class="coord-num">02 / Legacy</span>
-                <h3 class="coord-title">T. B. Worthington</h3>
-                <p class="coord-desc">Historic residence of the renowned author of <em>Ceylon Trees (1959)</em>.</p>
+
+            <div class="privilege-card">
+                <span class="privilege-num">02 / ELEVATION</span>
+                <h3 class="privilege-title">500m Hill Microclimate</h3>
+                <p class="privilege-text">
+                    Pleasant mountain air and cool evening breezes overlooking the Hanthana range, distinct from the coastal heat.
+                </p>
             </div>
-            <div class="coord-item">
-                <span class="coord-num">03 / Arboreta</span>
-                <h3 class="coord-title">1940s Historic Grove</h3>
-                <p class="coord-desc">Centuries-old trees framing private suite verandas and the horizon pool.</p>
+
+            <div class="privilege-card">
+                <span class="privilege-num">03 / ACCESSIBILITY</span>
+                <h3 class="privilege-title">5 Mins to Kandy Centre</h3>
+                <p class="privilege-text">
+                    Total secluded hillside calm located only minutes from the Royal Botanic Gardens, Kandy Lake, and the Temple of the Tooth.
+                </p>
             </div>
-            <div class="coord-item">
-                <span class="coord-num">04 / Debut</span>
-                <h3 class="coord-title">January 2027</h3>
-                <p class="coord-desc">Welcoming private buyouts and inaugural reservations.</p>
+
+            <div class="privilege-card">
+                <span class="privilege-num">04 / ENDEMIC FLORA</span>
+                <h3 class="privilege-title">Ceylon Trees (1959)</h3>
+                <p class="privilege-text">
+                    Home to ancient Ceylon Ironwood (*Mesua Ferrea*), Dipterocarpus giants, and fragrant Champaca canopies.
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- SECTION: PRIVATE REGISTER (Minimalist Lead Capture) -->
-    <section class="register-section" id="register">
-        <span class="register-eyebrow">Private Reservations</span>
-        <h2 class="register-heading">Join The Private Register</h2>
-        <p class="register-intro">
-            Founding guests receive priority suite allocation for our January 2027 opening season, estate buyout privileges, and private previews.
-        </p>
-
-        <!-- Pure Minimalist Inline Input -->
-        <form id="registerForm" onsubmit="handleRegistration(event)">
-            <div class="register-form-row">
-                <input type="email" id="emailInput" class="register-input" placeholder="Enter your email address..." required>
-                <button type="submit" class="register-submit">Request Invitation</button>
+    <!-- SECTION 4: EXPERIENCES & DINING (.hm-experiences-section) -->
+    <section class="hm-experiences-section" id="experiences">
+        <div class="section-header-row">
+            <div>
+                <span class="section-eyebrow">CEYLONESE SERENITY</span>
+                <h2 class="section-header-title">Estate Experiences &amp; Dining</h2>
             </div>
-        </form>
-
-        <div id="registerSuccess" class="register-success-msg">
-            Thank you. Your address has been entered into the private register for January 2027.
+            <a href="#register" class="common-link">PRIVATE RESERVES &rarr;</a>
         </div>
 
-        <!-- Quiet Concierge Text Links -->
-        <div class="concierge-links">
-            <a href="https://wa.me/?text=Hello%20The%20Botanist%20House%20Concierge,%20I%20am%20inquiring%20about%20the%20January%202027%20opening" target="_blank" class="link-editorial">
-                WhatsApp Concierge &rarr;
-            </a>
-            <a href="mailto:concierge@thebotanisthouse.com" class="link-editorial">
-                concierge@thebotanisthouse.com &rarr;
-            </a>
+        <div class="experiences-grid">
+            <div class="experience-item">
+                <div class="experience-img-wrap">
+                    <img src="assets/images/Kumubeach-dining-1-465x600-1.jpg" alt="Botanical Dining & Infusions">
+                </div>
+                <h3 class="experience-title">Artisanal Tea &amp; Botanical Dining</h3>
+                <p class="experience-text">
+                    Hill country single-origin teas paired with fresh botanical infusions harvested from the estate herb gardens. Open-air dining with seasonal Ceylon flavors.
+                </p>
+                <a href="#register" class="common-link">LEARN MORE &rarr;</a>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-img-wrap">
+                    <img src="assets/images/Teardrop-Kumubeach-Location-1920x1000-1.jpg" alt="Horizon Hillside Pool">
+                </div>
+                <h3 class="experience-title">The Hillside Horizon Pool</h3>
+                <p class="experience-text">
+                    A tranquil 20-meter infinity plunge pool suspended over the forested valley slopes, mirroring passing mountain clouds and historic canopies.
+                </p>
+                <a href="#register" class="common-link">LEARN MORE &rarr;</a>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-img-wrap">
+                    <img src="assets/images/botanist/kandy-historic-grove.jpg" alt="Arboretum Forest Walks">
+                </div>
+                <h3 class="experience-title">Guided Arboretum Trails</h3>
+                <p class="experience-text">
+                    Private dawn walks through Worthington’s living specimen catalog with the resident naturalist, identifying endemic Ceylon trees and highland birdlife.
+                </p>
+                <a href="#register" class="common-link">LEARN MORE &rarr;</a>
+            </div>
         </div>
     </section>
 
-    <!-- FOOTER (Understated & Calm) -->
-    <footer class="footer">
-        <div>&copy; 2026 The Botanist House &bull; Kandy, Sri Lanka</div>
-        <div>A Living Arboretum Heritage</div>
+    <!-- SECTION 5: PRIVATE REGISTER (.hm-register-section) -->
+    <section class="hm-register-section" id="register">
+        <div class="register-container">
+            <span class="register-eyebrow">INDEPENDENT BOUTIQUE RETREAT &bull; OPENING JAN 2027</span>
+            <h2 class="register-heading">Join The Private Register</h2>
+            <p class="register-intro">
+                Register for priority access to inaugural reservations, bespoke residency packages, and private pre-opening stays prior to public launch.
+            </p>
+
+            <form id="registerForm" onsubmit="handleRegistration(event)">
+                <div class="kumu-form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="regName">Full Name</label>
+                        <input type="text" id="regName" class="kumu-input" placeholder="Your name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="regEmail">Email Address</label>
+                        <input type="email" id="regEmail" class="kumu-input" placeholder="name@domain.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="regSuite">Preferred Residence</label>
+                        <select id="regSuite" class="kumu-select">
+                            <option value="Worthington Master Suite">The Worthington Master Suite</option>
+                            <option value="Canopy Veranda Suite">Canopy Veranda Suite</option>
+                            <option value="Arboretum Garden Residence">Arboretum Garden Residence</option>
+                            <option value="Full Estate Private Buyout">Full Estate Private Buyout</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="regPeriod">Target Visit Window (2027)</label>
+                        <select id="regPeriod" class="kumu-select">
+                            <option value="January – March 2027 (Opening Season)">January &ndash; March 2027 (Inaugural)</option>
+                            <option value="April – June 2027">April &ndash; June 2027</option>
+                            <option value="July – September 2027">July &ndash; September 2027</option>
+                            <option value="October – December 2027">October &ndash; December 2027</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <button type="submit" class="register-submit-btn">REQUEST PRIVATE INVITATION</button>
+                    </div>
+                </div>
+            </form>
+
+            <div id="registerSuccess" class="register-success-msg">
+                Thank you. Your address has been entered into the private register. Our founding concierge will be in touch with preview dates.
+            </div>
+
+            <div class="concierge-links">
+                <a href="https://wa.me/?text=Hello%20The%20Botanist%20House%20Concierge,%20I%20am%20inquiring%20about%20the%20January%202027%20opening" target="_blank" class="common-link">
+                    WHATSAPP CONCIERGE &rarr;
+                </a>
+                <a href="mailto:concierge@thebotanisthouse.com" class="common-link">
+                    CONCIERGE@THEBOTANISTHOUSE.COM &rarr;
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER (Kumu Beach Structured Multi-Column Footer) -->
+    <footer class="kumu-footer">
+        <div class="footer-top-row">
+            <!-- Brand Column -->
+            <div class="footer-brand-col">
+                <a href="#" class="site-logo" style="padding: 0;">
+                    <img id="footerLogo" class="site-logo-icon" src="assets/botanist/botanist-emblem-white.svg" alt="The Botanist House">
+                    <span class="site-logo-title" style="color: var(--text);">The Botanist House</span>
+                </a>
+                <p class="footer-tagline">
+                    An intimate botanical retreat nestled in the hills of Kandy, Sri Lanka. Debuting January 2027.
+                </p>
+            </div>
+
+            <!-- Col 1 -->
+            <div>
+                <h4 class="footer-col-title">The Estate</h4>
+                <ul class="footer-links-list">
+                    <li><a href="#welcome">Worthington Heritage</a></li>
+                    <li><a href="#heritage">Living Arboretum</a></li>
+                    <li><a href="#accommodation">Suites &amp; Verandas</a></li>
+                    <li><a href="#experiences">Experiences</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 2 -->
+            <div>
+                <h4 class="footer-col-title">Reservations</h4>
+                <ul class="footer-links-list">
+                    <li><a href="#register">Private Register</a></li>
+                    <li><a href="#register">Inaugural Season 2027</a></li>
+                    <li><a href="#register">Private Buyouts</a></li>
+                    <li><a href="#register">Concierge Inquiries</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3: Coordinates -->
+            <div>
+                <h4 class="footer-col-title">Estate Coordinates</h4>
+                <div class="footer-contact-info">
+                    Hanthana Mountain Hills<br>
+                    Kandy, Sri Lanka<br><br>
+                    concierge@thebotanisthouse.com<br>
+                    +94 81 223 4567
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom-bar">
+            <div>&copy; 2027 The Botanist House. All rights reserved.</div>
+            <div>Inspired by Ceylon botanical heritage &bull; Teardrop luxury boutique style</div>
+        </div>
     </footer>
 
     <!-- JAVASCRIPT LOGIC -->
@@ -1060,19 +1949,28 @@
         setInterval(updateCountdown, 1000);
         updateCountdown();
 
-        // 2. Light / Dark Theme Switcher with Dynamic Logo Color
+        // 2. Slide-out Mega Menu Drawer
+        function toggleDrawer() {
+            const drawer = document.getElementById('megaDrawer');
+            const overlay = document.getElementById('drawerOverlay');
+            drawer.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        // 3. Light / Dark Theme Switcher with Dynamic Logo Color
         function updateLogoTheme(isDark) {
             const heroLogo = document.getElementById('heroLogo');
             const navLogo = document.getElementById('navLogo');
+            const footerLogo = document.getElementById('footerLogo');
 
             if (isDark) {
-                // Dark mode: pure white logo
                 if (heroLogo) heroLogo.src = 'assets/botanist/botanist-logo-white.svg';
                 if (navLogo) navLogo.src = 'assets/botanist/botanist-emblem-white.svg';
+                if (footerLogo) footerLogo.src = 'assets/botanist/botanist-emblem-white.svg';
             } else {
-                // Light mode: official primary green logo (#1E421B)
                 if (heroLogo) heroLogo.src = 'assets/botanist/botanist-logo-green.svg';
                 if (navLogo) navLogo.src = 'assets/botanist/botanist-emblem-green.svg';
+                if (footerLogo) footerLogo.src = 'assets/botanist/botanist-emblem-green.svg';
             }
         }
 
@@ -1102,30 +2000,33 @@
         }
         updateLogoTheme(document.body.classList.contains('theme-dark'));
 
-        // 3. Header scroll state
+        // 4. Header Scroll State
         window.addEventListener('scroll', () => {
-            const topNav = document.getElementById('topNav');
-            if (window.scrollY > 50) {
-                topNav.classList.add('scrolled');
+            const mainNav = document.getElementById('mainNav');
+            if (window.scrollY > 40) {
+                mainNav.classList.add('scrolled');
             } else {
-                topNav.classList.remove('scrolled');
+                mainNav.classList.remove('scrolled');
             }
         });
 
-        // 4. Minimalist Registration Form Handler
+        // 5. Private Register Form Submission Handler
         function handleRegistration(e) {
             e.preventDefault();
-            const email = document.getElementById('emailInput').value;
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const suite = document.getElementById('regSuite').value;
+            const period = document.getElementById('regPeriod').value;
             
             const entries = JSON.parse(localStorage.getItem('botanist_register') || '[]');
-            entries.push({ email, date: new Date().toISOString() });
+            entries.push({ name, email, suite, period, date: new Date().toISOString() });
             localStorage.setItem('botanist_register', JSON.stringify(entries));
 
             document.getElementById('registerForm').style.display = 'none';
             document.getElementById('registerSuccess').style.display = 'block';
         }
 
-        // 5. Ambient Floating Botanical Bubbles / Dewdrop Particles
+        // 6. Ambient Floating Botanical Bubbles / Dewdrop Particles
         const canvas = document.getElementById('botanical-canvas');
         if (canvas) {
             const ctx = canvas.getContext('2d');
@@ -1137,7 +2038,6 @@
                 height = canvas.height = window.innerHeight;
             });
 
-            // Ambient gentle bubbles with varying size and soft opacity
             const bubbleCount = 42;
             const bubbles = [];
             for (let i = 0; i < bubbleCount; i++) {
@@ -1149,45 +2049,43 @@
                     speedX: (Math.random() - 0.5) * 0.3,
                     swayOffset: Math.random() * Math.PI * 2,
                     swaySpeed: Math.random() * 0.015 + 0.008,
-                    baseAlpha: Math.random() * 0.4 + 0.2
+                    opacity: Math.random() * 0.45 + 0.2
                 });
             }
 
-            function animateBubbles() {
+            function drawBubbles() {
                 ctx.clearRect(0, 0, width, height);
-                const isDark = document.body.classList.contains('theme-dark');
+
+                const isLight = document.body.classList.contains('theme-light');
+                const fillColor = isLight ? 'rgba(30, 66, 27, ' : 'rgba(255, 255, 255, ';
 
                 bubbles.forEach(b => {
+                    b.y -= b.speedY;
                     b.swayOffset += b.swaySpeed;
                     b.x += Math.sin(b.swayOffset) * 0.4 + b.speedX;
-                    b.y += b.speedY;
 
-                    // Wrap around
-                    if (b.y > height + 10) {
-                        b.y = -10;
+                    if (b.y < -10) {
+                        b.y = height + 10;
                         b.x = Math.random() * width;
                     }
-                    if (b.x > width + 10) b.x = -10;
                     if (b.x < -10) b.x = width + 10;
+                    if (b.x > width + 10) b.x = -10;
 
-                    // Draw soft bubble with gentle translucent core
                     ctx.beginPath();
                     ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = fillColor + b.opacity + ')';
+                    ctx.fill();
 
-                    if (isDark) {
-                        // Soft ethereal white/gold glowing bubble
-                        ctx.fillStyle = `rgba(255, 255, 255, ${b.baseAlpha})`;
-                    } else {
-                        // Soft botanical dewy green bubble
-                        ctx.fillStyle = `rgba(30, 66, 27, ${b.baseAlpha * 0.7})`;
-                    }
+                    // subtle inner glow
+                    ctx.beginPath();
+                    ctx.arc(b.x - b.radius * 0.3, b.y - b.radius * 0.3, b.radius * 0.35, 0, Math.PI * 2);
+                    ctx.fillStyle = isLight ? 'rgba(255, 255, 255, 0.6)' : 'rgba(255, 255, 255, 0.75)';
                     ctx.fill();
                 });
 
-                requestAnimationFrame(animateBubbles);
+                requestAnimationFrame(drawBubbles);
             }
-
-            animateBubbles();
+            drawBubbles();
         }
     </script>
 </body>
