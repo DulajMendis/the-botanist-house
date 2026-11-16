@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Botanist House — Boutique Hotel &amp; Botanical Retreat, Kandy</title>
+    
+    <!-- Google Fonts for Cormorant Garamond & Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Poppins:wght@200;300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Official Brand Fonts */
+        @font-face {
+            font-family: 'Cinzel';
+            src: url('assets/fonts/Cinzel-Medium.ttf') format('truetype');
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        :root {
+            /* Palette */
+            --botanist-green: #1e421b;
+            --botanist-green-soft: #285424;
+            --accent-gold: #c7a77b;
+            
+            /* Dark Theme (Nocturne Canopy) */
+            --dark-bg: #0b110e;
+            --dark-text: #ffffff;
+            --dark-text-muted: rgba(255, 255, 255, 0.65);
+            --dark-border: rgba(255, 255, 255, 0.12);
+            --dark-surface: #101814;
+            
+            /* Light Theme (Archival Parchment) */
+            --light-bg: #f7f3eb;
+            --light-text: #17211a;
+            --light-text-muted: rgba(23, 33, 26, 0.68);
+            --light-border: #ded7c8;
+            --light-surface: #ffffff;
+            
+            /* Dynamic Variables (Default Dark) */
+            --bg: var(--dark-bg);
+            --text: var(--dark-text);
+            --text-muted: var(--dark-text-muted);
+            --border: var(--dark-border);
+            --surface: var(--dark-surface);
+            
+            /* Typography */
+            --font-display: 'Cinzel', serif;
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+            --font-sans: 'Poppins', -apple-system, sans-serif;
+            
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body.theme-light {
+            --bg: var(--light-bg);
+            --text: var(--light-text);
+            --text-muted: var(--light-text-muted);
+            --border: var(--light-border);
+            --surface: var(--light-surface);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font-sans);
+            font-weight: 300;
+            line-height: 1.7;
+            overflow-x: hidden;
+            transition: background-color 0.6s ease, color 0.6s ease;
+        }
+
+        /* -------------------------------------------------------------
+           MINIMALIST NAVIGATION BAR
+        ------------------------------------------------------------- */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 32px 6%;
+            transition: var(--transition);
+        }
+
+        .top-nav.scrolled {
+            padding: 20px 6%;
+            background: rgba(11, 17, 14, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        body.theme-light .top-nav.scrolled {
+            background: rgba(247, 243, 235, 0.92);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .nav-logo-icon {
+            width: 26px;
+            height: 32px;
+            object-fit: contain;
+            transition: var(--transition);
+        }
+
+        .nav-brand-title {
+            font-family: var(--font-display);
+            font-size: 13px;
+            letter-spacing: 3.5px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-debut {
+            font-size: 10.5px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            opacity: 0.75;
+        }
+
+        .nav-theme-btn {
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+            padding: 4px;
+        }
+
+        .nav-theme-btn:hover {
+            opacity: 1;
+        }
+
+        .nav-theme-btn svg {
+            width: 17px;
+            height: 17px;
+            fill: currentColor;
+        }
+
+        .nav-link {
+            font-size: 11px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: inherit;
+            text-decoration: none;
+            position: relative;
+            padding-bottom: 4px;
+            opacity: 0.85;
+            transition: var(--transition);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: currentColor;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            opacity: 1;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* -------------------------------------------------------------
+           HERO SECTION (Pure Atmospheric Grandeur & Presence)
+        ------------------------------------------------------------- */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            min-height: 100dvh;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: clamp(55px, 7vh, 85px) 6% clamp(14px, 2vh, 24px);
+            text-align: center;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+
+        @media (max-height: 780px) {
+            .hero {
+                padding-top: 55px;
+                padding-bottom: 12px;
+            }
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('assets/images/botanist/hero-kandy-hills.jpg');
+            background-size: cover;
+            background-position: center 40%;
+            opacity: 0.36;
+            z-index: 1;
+            filter: contrast(105%) saturate(85%);
+            animation: gentleScale 24s infinite alternate ease-in-out;
+        }
+
+        body.theme-light .hero-bg {
+            opacity: 0.18;
+            mix-blend-mode: multiply;
+        }
+
+        @keyframes gentleScale {
+            0% { transform: scale(1.0); }
+            100% { transform: scale(1.06); }
+        }
+
+        .hero-vignette {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        #botanical-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        body.theme-dark .hero-vignette {
+            background: radial-gradient(circle at center, rgba(11, 17, 14, 0.6) 0%, rgba(11, 17, 14, 0.94) 80%);
+        }
+
+        body.theme-light .hero-vignette {
+            background: radial-gradient(circle at center, rgba(247, 243, 235, 0.68) 0%, rgba(247, 243, 235, 0.96) 80%);
+        }
+
+        .hero-center {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: auto 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* The Official Brand Logo Sized with Grandeur & Stately Presence */
+        .hero-logo-box {
+            width: clamp(240px, 26vw, 320px);
+            margin-bottom: clamp(14px, 2.2vh, 24px);
+            transition: var(--transition);
+        }
+
+        .hero-logo-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 8px 24px rgba(0,0,0,0.3));
+        }
+
+        .hero-location-line {
+            font-size: 11.5px;
+            letter-spacing: 4.5px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            font-weight: 400;
+            margin-bottom: clamp(12px, 1.8vh, 18px);
+        }
+
+        body.theme-light .hero-location-line {
+            color: var(--botanist-green);
+        }
+
+        .hero-lead-quote {
+            font-family: var(--font-serif);
+            font-size: clamp(21px, 2.4vw, 28px);
+            font-style: italic;
+            font-weight: 300;
+            line-height: 1.55;
+            max-width: 780px;
+            margin-bottom: clamp(18px, 2.8vh, 30px);
+            opacity: 0.95;
+        }
+
+        /* Minimalist Single-Line Countdown (Prominent, High Legibility) */
+        .countdown-strip {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(18px, 2.8vw, 32px);
+            margin-bottom: clamp(18px, 3vh, 30px);
+            padding: 11px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            width: 100%;
+            max-width: 560px;
+        }
+
+        .countdown-item {
+            display: flex;
+            align-items: baseline;
+            gap: 7px;
+        }
+
+        .countdown-val {
+            font-family: var(--font-display);
+            font-size: clamp(21px, 2.3vw, 25px);
+            font-weight: 500;
+            color: inherit;
+        }
+
+        body.theme-light .countdown-val {
+            color: var(--botanist-green);
+        }
+
+        .countdown-name {
+            font-size: 10px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            opacity: 0.72;
+        }
+
+        .countdown-divider {
+            opacity: 0.35;
+            font-size: 16px;
+        }
+
+        /* Signature Editorial Link & Clean Button */
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: clamp(24px, 3.5vw, 42px);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-minimal {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 36px;
+            font-family: var(--font-sans);
+            font-size: 11.5px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            font-weight: 500;
+            text-decoration: none;
+            color: #ffffff;
+            background-color: var(--botanist-green);
+            border: 1px solid var(--botanist-green);
+            border-radius: 0;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        body.theme-dark .btn-minimal {
+            border-color: rgba(255, 255, 255, 0.28);
+        }
+
+        .btn-minimal:hover {
+            background-color: var(--botanist-green-soft);
+            border-color: var(--accent-gold);
+            color: #ffffff;
+        }
+
+        .link-editorial {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 11.5px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            font-weight: 500;
+            text-decoration: none;
+            color: inherit;
+            padding-bottom: 6px;
+            opacity: 0.9;
+            transition: var(--transition);
+        }
+
+        .link-editorial::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 1px;
+            width: 32px;
+            background-color: currentColor;
+            transition: width 0.35s ease;
+        }
+
+        .link-editorial:hover {
+            opacity: 1;
+        }
+
+        .link-editorial:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Bottom Scroll Cue with Dedicated Footer */
+        .hero-footer {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding-top: clamp(14px, 2.5vh, 28px);
+            padding-bottom: 4px;
+        }
+
+        .hero-scroll-cue {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            font-size: 10.5px;
+            letter-spacing: 3.5px;
+            text-transform: uppercase;
+            opacity: 0.72;
+            text-decoration: none;
+            color: inherit;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .hero-scroll-cue:hover {
+            opacity: 1;
+            transform: translateY(3px);
+        }
+
+        .scroll-cue-indicator {
+            width: 1px;
+            height: 22px;
+            background: currentColor;
+            opacity: 0.45;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scroll-cue-indicator::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: currentColor;
+            animation: scrollLineDrop 2.2s infinite ease-in-out;
+        }
+
+        @keyframes scrollLineDrop {
+            0% { transform: translateY(-100%); }
+            50%, 100% { transform: translateY(100%); }
+        }
+
+        /* Compact scaling for shorter viewports (e.g. 1366x768 with browser bars) */
+        @media (max-height: 760px) {
+            .hero-logo-box {
+                width: 240px;
+                margin-bottom: 12px;
+            }
+            .hero-location-line {
+                margin-bottom: 10px;
+            }
+            .hero-lead-quote {
+                font-size: 20px;
+                margin-bottom: 14px;
+            }
+            .countdown-strip {
+                margin-bottom: 16px;
+                padding: 9px 0;
+            }
+            .countdown-val {
+                font-size: 20px;
+            }
+            .hero-footer {
+                padding-top: 10px;
+            }
+            .scroll-cue-indicator {
+                height: 18px;
+            }
+        }
+
+        /* -------------------------------------------------------------
+           SECTION: THE WORTHINGTON HERITAGE (Pure Editorial Narrative)
+        ------------------------------------------------------------- */
+        .story-section {
+            padding: 140px 6% 120px;
+            max-width: 1160px;
+            margin: 0 auto;
+        }
+
+        .story-eyebrow {
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: 24px;
+            display: block;
+        }
+
+        body.theme-light .story-eyebrow {
+            color: var(--botanist-green);
+        }
+
+        .story-lead {
+            font-family: var(--font-serif);
+            font-size: clamp(28px, 4.2vw, 46px);
+            font-weight: 300;
+            line-height: 1.35;
+            margin-bottom: 64px;
+            max-width: 960px;
+            letter-spacing: 0.5px;
+        }
+
+        body.theme-light .story-lead {
+            color: var(--botanist-green);
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+            margin-bottom: 90px;
+        }
+
+        .story-col-text {
+            font-size: 15px;
+            line-height: 2.0;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .story-col-text p {
+            margin-bottom: 24px;
+        }
+
+        .story-author-note {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 18px;
+            color: var(--text);
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Wide Asymmetrical Photograph */
+        .story-image-wrap {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            height: 480px;
+            border: 1px solid var(--border);
+            margin-bottom: 14px;
+        }
+
+        .story-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: contrast(102%) saturate(90%);
+            transition: transform 1.2s ease;
+        }
+
+        .story-image-wrap:hover .story-image {
+            transform: scale(1.03);
+        }
+
+        .story-image-caption {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.6;
+        }
+
+        /* -------------------------------------------------------------
+           SECTION: AT A GLANCE (Architectural Coordinates Grid)
+        ------------------------------------------------------------- */
+        .coordinates-section {
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 50px 6%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .coordinates-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+        }
+
+        .coord-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .coord-num {
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        body.theme-light .coord-num {
+            color: var(--botanist-green);
+        }
+
+        .coord-title {
+            font-family: var(--font-display);
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .coord-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* -------------------------------------------------------------
+           SECTION: PRIVATE REGISTER (Quiet, Refined Lead Capture)
+        ------------------------------------------------------------- */
+        .register-section {
+            padding: 130px 6% 110px;
+            max-width: 680px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .register-eyebrow {
+            font-size: 10.5px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: 18px;
+            display: block;
+        }
+
+        body.theme-light .register-eyebrow {
+            color: var(--botanist-green);
+        }
+
+        .register-heading {
+            font-family: var(--font-display);
+            font-size: clamp(26px, 3.5vw, 36px);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        body.theme-light .register-heading {
+            color: var(--botanist-green);
+        }
+
+        .register-intro {
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        /* Single-line Minimal Form */
+        .register-form-row {
+            display: flex;
+            align-items: stretch;
+            width: 100%;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            margin-bottom: 24px;
+        }
+
+        .register-form-row:focus-within {
+            border-color: var(--accent-gold);
+        }
+
+        body.theme-light .register-form-row:focus-within {
+            border-color: var(--botanist-green);
+        }
+
+        .register-input {
+            flex: 1;
+            padding: 16px 20px;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-family: var(--font-sans);
+            font-size: 13px;
+            color: inherit;
+            letter-spacing: 0.5px;
+        }
+
+        .register-input::placeholder {
+            color: var(--text-muted);
+            opacity: 0.7;
+        }
+
+        .register-submit {
+            padding: 0 28px;
+            background: var(--botanist-green);
+            color: #ffffff;
+            border: none;
+            font-family: var(--font-sans);
+            font-size: 10.5px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 400;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .register-submit:hover {
+            background-color: var(--botanist-green-soft);
+            color: var(--accent-gold);
+        }
+
+        /* Success Message */
+        .register-success-msg {
+            display: none;
+            font-family: var(--font-serif);
+            font-size: 17px;
+            font-style: italic;
+            color: var(--accent-gold);
+            padding: 18px 0;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        body.theme-light .register-success-msg {
+            color: var(--botanist-green);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Concierge direct links */
+        .concierge-links {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        /* -------------------------------------------------------------
+           FOOTER (Quiet Luxury)
+        ------------------------------------------------------------- */
+        .footer {
+            padding: 50px 6%;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .story-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .coordinates-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 28px;
+            }
+            .nav-debut {
+                display: none;
+            }
+            .hero-actions {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .story-image-wrap {
+                height: 320px;
+            }
+            .register-form-row {
+                flex-direction: column;
+            }
+            .register-submit {
+                padding: 16px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .coordinates-grid {
+                grid-template-columns: 1fr;
+            }
+            .countdown-strip {
+                gap: 14px;
+            }
+            .countdown-val {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body class="theme-dark">
+
+    <!-- MINIMALIST NAVIGATION -->
+    <header class="top-nav" id="topNav">
+        <a href="#" class="nav-brand">
+            <!-- Nav Emblem: White on dark, Green on light -->
+            <img id="navLogo" class="nav-logo-icon" src="assets/botanist/botanist-emblem-white.svg" alt="The Botanist House Emblem">
+            <span class="nav-brand-title">The Botanist House</span>
+        </a>
+
+        <div class="nav-right">
+            <span class="nav-debut">Opening January 2027</span>
+
+            <!-- Minimal Theme Switcher (Sun / Moon) -->
+            <button class="nav-theme-btn" id="themeBtn" onclick="toggleTheme()" title="Switch Light (Parchment) / Dark (Nocturne)">
+                <svg id="themeIcon" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
+            </button>
+
+            <a href="#register" class="nav-link">Private Register</a>
+        </div>
+    </header>
+
+    <!-- HERO VIEWPORT (Less is More, Pure Luxury Presence) -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-vignette"></div>
+        <canvas id="botanical-canvas"></canvas>
+
+        <div class="hero-spacer-top" aria-hidden="true"></div>
+
+        <div class="hero-center">
+            <!-- Official Vector Logo Lockup: White in Dark Mode, Green in Light Mode -->
+            <div class="hero-logo-box">
+                <img id="heroLogo" class="hero-logo-img" src="assets/botanist/botanist-logo-white.svg" alt="The Botanist House Logo">
+            </div>
+
+            <div class="hero-location-line">Kandy Hills &bull; Sri Lanka</div>
+
+            <p class="hero-lead-quote">
+                Where Ceylon’s 1940s botanical heritage breathes anew across private terraces, tranquil hill waters, and centuries-old canopies.
+            </p>
+
+            <!-- Minimal Single-Line Countdown -->
+            <div class="countdown-strip">
+                <div class="countdown-item">
+                    <span class="countdown-val" id="days">00</span>
+                    <span class="countdown-name">Days</span>
+                </div>
+                <span class="countdown-divider">/</span>
+                <div class="countdown-item">
+                    <span class="countdown-val" id="hours">00</span>
+                    <span class="countdown-name">Hours</span>
+                </div>
+                <span class="countdown-divider">/</span>
+                <div class="countdown-item">
+                    <span class="countdown-val" id="minutes">00</span>
+                    <span class="countdown-name">Mins</span>
+                </div>
+                <span class="countdown-divider">/</span>
+                <div class="countdown-item">
+                    <span class="countdown-val" id="seconds">00</span>
+                    <span class="countdown-name">Secs</span>
+                </div>
+            </div>
+
+            <!-- Restrained Actions -->
+            <div class="hero-actions">
+                <a href="#register" class="btn-minimal">Join Private Register</a>
+                <a href="#story" class="link-editorial">The Worthington Story &rarr;</a>
+            </div>
+        </div>
+
+        <!-- Dedicated Editorial Explore Scroll Cue -->
+        <div class="hero-footer">
+            <a href="#story" class="hero-scroll-cue" aria-label="Explore The Botanist House">
+                <span>Explore</span>
+                <span class="scroll-cue-indicator"></span>
+            </a>
+        </div>
+    </section>
+
+    <!-- SECTION: THE STORY & EDITORIAL (Spacious & Poetic) -->
+    <section class="story-section" id="story">
+        <span class="story-eyebrow">Estate Heritage &bull; Ceylon Trees (1959)</span>
+        
+        <h2 class="story-lead">
+            Tucked away in the beautiful hills of Kandy, The Botanist House is an intimate retreat secluded five minutes from the city centre.
+        </h2>
+
+        <div class="story-grid">
+            <div class="story-col-text">
+                <p>
+                    The private terraces of the rooms and the pool offer beautiful views of the magnificent trees surrounding the property, many of which were planted in the 1940s by T. B. Worthington, the renowned botanist and author of <em>Ceylon Trees (1959)</em>, who once called this very place home.
+                </p>
+                <p>
+                    Today, his legacy lives on through the lush natural surroundings, giving the property a unique connection to Sri Lanka’s botanical heritage.
+                </p>
+                <div class="story-author-note">
+                    &mdash; T. B. Worthington, Botanist &amp; Author
+                </div>
+            </div>
+
+            <div>
+                <div class="story-image-wrap">
+                    <img class="story-image" src="assets/images/botanist/worthington-canopy-feature.jpg" alt="1940s Historic Tree Canopy of The Botanist House">
+                </div>
+                <span class="story-image-caption">The 1940s Historic Grove &bull; Kandy, Sri Lanka</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: AT A GLANCE (Architectural Coordinates) -->
+    <section class="coordinates-section">
+        <div class="coordinates-grid">
+            <div class="coord-item">
+                <span class="coord-num">01 / Location</span>
+                <h3 class="coord-title">Kandy Hills</h3>
+                <p class="coord-desc">Secluded mountain sanctuary just five minutes from Kandy city centre.</p>
+            </div>
+            <div class="coord-item">
+                <span class="coord-num">02 / Legacy</span>
+                <h3 class="coord-title">T. B. Worthington</h3>
+                <p class="coord-desc">Historic residence of the renowned author of <em>Ceylon Trees (1959)</em>.</p>
+            </div>
+            <div class="coord-item">
+                <span class="coord-num">03 / Arboreta</span>
+                <h3 class="coord-title">1940s Historic Grove</h3>
+                <p class="coord-desc">Centuries-old trees framing private suite verandas and the horizon pool.</p>
+            </div>
+            <div class="coord-item">
+                <span class="coord-num">04 / Debut</span>
+                <h3 class="coord-title">January 2027</h3>
+                <p class="coord-desc">Welcoming private buyouts and inaugural reservations.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: PRIVATE REGISTER (Minimalist Lead Capture) -->
+    <section class="register-section" id="register">
+        <span class="register-eyebrow">Private Reservations</span>
+        <h2 class="register-heading">Join The Private Register</h2>
+        <p class="register-intro">
+            Founding guests receive priority suite allocation for our January 2027 opening season, estate buyout privileges, and private previews.
+        </p>
+
+        <!-- Pure Minimalist Inline Input -->
+        <form id="registerForm" onsubmit="handleRegistration(event)">
+            <div class="register-form-row">
+                <input type="email" id="emailInput" class="register-input" placeholder="Enter your email address..." required>
+                <button type="submit" class="register-submit">Request Invitation</button>
+            </div>
+        </form>
+
+        <div id="registerSuccess" class="register-success-msg">
+            Thank you. Your address has been entered into the private register for January 2027.
+        </div>
+
+        <!-- Quiet Concierge Text Links -->
+        <div class="concierge-links">
+            <a href="https://wa.me/?text=Hello%20The%20Botanist%20House%20Concierge,%20I%20am%20inquiring%20about%20the%20January%202027%20opening" target="_blank" class="link-editorial">
+                WhatsApp Concierge &rarr;
+            </a>
+            <a href="mailto:concierge@thebotanisthouse.com" class="link-editorial">
+                concierge@thebotanisthouse.com &rarr;
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER (Understated & Calm) -->
+    <footer class="footer">
+        <div>&copy; 2026 The Botanist House &bull; Kandy, Sri Lanka</div>
+        <div>A Living Arboretum Heritage</div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // 1. Precise Countdown to January 1, 2027
+        const openingDate = new Date('January 1, 2027 00:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const diff = openingDate - now;
+
+            if (diff > 0) {
+                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+                document.getElementById('days').innerText = String(d).padStart(2, '0');
+                document.getElementById('hours').innerText = String(h).padStart(2, '0');
+                document.getElementById('minutes').innerText = String(m).padStart(2, '0');
+                document.getElementById('seconds').innerText = String(s).padStart(2, '0');
+            } else {
+                document.getElementById('days').innerText = "00";
+            }
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // 2. Light / Dark Theme Switcher with Dynamic Logo Color
+        function updateLogoTheme(isDark) {
+            const heroLogo = document.getElementById('heroLogo');
+            const navLogo = document.getElementById('navLogo');
+
+            if (isDark) {
+                // Dark mode: pure white logo
+                if (heroLogo) heroLogo.src = 'assets/botanist/botanist-logo-white.svg';
+                if (navLogo) navLogo.src = 'assets/botanist/botanist-emblem-white.svg';
+            } else {
+                // Light mode: official primary green logo (#1E421B)
+                if (heroLogo) heroLogo.src = 'assets/botanist/botanist-logo-green.svg';
+                if (navLogo) navLogo.src = 'assets/botanist/botanist-emblem-green.svg';
+            }
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const isDark = body.classList.contains('theme-dark');
+            if (isDark) {
+                body.classList.remove('theme-dark');
+                body.classList.add('theme-light');
+                updateLogoTheme(false);
+            } else {
+                body.classList.remove('theme-light');
+                body.classList.add('theme-dark');
+                updateLogoTheme(true);
+            }
+        }
+
+        // Initialize theme (supporting URL parameter or default dark)
+        const urlParams = new URLSearchParams(window.location.search);
+        const paramTheme = urlParams.get('theme');
+        if (paramTheme === 'light') {
+            document.body.classList.remove('theme-dark');
+            document.body.classList.add('theme-light');
+        } else if (paramTheme === 'dark') {
+            document.body.classList.remove('theme-light');
+            document.body.classList.add('theme-dark');
+        }
+        updateLogoTheme(document.body.classList.contains('theme-dark'));
+
+        // 3. Header scroll state
+        window.addEventListener('scroll', () => {
+            const topNav = document.getElementById('topNav');
+            if (window.scrollY > 50) {
+                topNav.classList.add('scrolled');
+            } else {
+                topNav.classList.remove('scrolled');
+            }
+        });
+
+        // 4. Minimalist Registration Form Handler
+        function handleRegistration(e) {
+            e.preventDefault();
+            const email = document.getElementById('emailInput').value;
+            
+            const entries = JSON.parse(localStorage.getItem('botanist_register') || '[]');
+            entries.push({ email, date: new Date().toISOString() });
+            localStorage.setItem('botanist_register', JSON.stringify(entries));
+
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('registerSuccess').style.display = 'block';
+        }
+
+        // 5. Ambient Floating Botanical Bubbles / Dewdrop Particles
+        const canvas = document.getElementById('botanical-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let width = canvas.width = window.innerWidth;
+            let height = canvas.height = window.innerHeight;
+
+            window.addEventListener('resize', () => {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            });
+
+            // Ambient gentle bubbles with varying size and soft opacity
+            const bubbleCount = 42;
+            const bubbles = [];
+            for (let i = 0; i < bubbleCount; i++) {
+                bubbles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    radius: Math.random() * 2.8 + 1.0,
+                    speedY: Math.random() * 0.45 + 0.2,
+                    speedX: (Math.random() - 0.5) * 0.3,
+                    swayOffset: Math.random() * Math.PI * 2,
+                    swaySpeed: Math.random() * 0.015 + 0.008,
+                    baseAlpha: Math.random() * 0.4 + 0.2
+                });
+            }
+
+            function animateBubbles() {
+                ctx.clearRect(0, 0, width, height);
+                const isDark = document.body.classList.contains('theme-dark');
+
+                bubbles.forEach(b => {
+                    b.swayOffset += b.swaySpeed;
+                    b.x += Math.sin(b.swayOffset) * 0.4 + b.speedX;
+                    b.y += b.speedY;
+
+                    // Wrap around
+                    if (b.y > height + 10) {
+                        b.y = -10;
+                        b.x = Math.random() * width;
+                    }
+                    if (b.x > width + 10) b.x = -10;
+                    if (b.x < -10) b.x = width + 10;
+
+                    // Draw soft bubble with gentle translucent core
+                    ctx.beginPath();
+                    ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
+
+                    if (isDark) {
+                        // Soft ethereal white/gold glowing bubble
+                        ctx.fillStyle = `rgba(255, 255, 255, ${b.baseAlpha})`;
+                    } else {
+                        // Soft botanical dewy green bubble
+                        ctx.fillStyle = `rgba(30, 66, 27, ${b.baseAlpha * 0.7})`;
+                    }
+                    ctx.fill();
+                });
+
+                requestAnimationFrame(animateBubbles);
+            }
+
+            animateBubbles();
+        }
+    </script>
+</body>
+</html>
