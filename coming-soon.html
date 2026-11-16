@@ -566,7 +566,7 @@
         }
 
         /* -------------------------------------------------------------
-           HERO SECTION (.main-banner, Full-bleed 100vh with Ambient Bubbles)
+           HERO SECTION (.main-banner, Full-bleed 100vh with Falling Leaves)
         ------------------------------------------------------------- */
         .hero {
             position: relative;
@@ -972,6 +972,7 @@
 
         /* -------------------------------------------------------------
            SECTION 2: ACCOMMODATION SHOWCASE (.hm-accommodation-section)
+           (Authentic Colonial Hill Suites with Teak Verandas & Mountain Air)
         ------------------------------------------------------------- */
         .hm-accommodation-section {
             padding: 100px 6% 110px;
@@ -1141,6 +1142,7 @@
 
         /* -------------------------------------------------------------
            SECTION 4: EXPERIENCES & RETREAT (.hm-experiences-section)
+           (Authentic Hill Tea, Forest Horizon Pool, Arboretum Trail)
         ------------------------------------------------------------- */
         .hm-experiences-section {
             padding: 110px 6%;
@@ -1198,7 +1200,6 @@
 
         /* -------------------------------------------------------------
            SECTION 5: PRIVATE REGISTER FORM (.hm-register-section)
-           (Kumu Beach styled Reservation Panel)
         ------------------------------------------------------------- */
         .hm-register-section {
             padding: 120px 6% 130px;
@@ -1440,12 +1441,9 @@
         }
 
         /* -------------------------------------------------------------
-           RESPONSIVE BREAKPOINTS
+           RESPONSIVE BREAKPOINTS (Matching Kumu Beach Mobile Architecture)
         ------------------------------------------------------------- */
         @media (max-width: 1024px) {
-            #desktop-menu {
-                display: none;
-            }
             .welcome-inner {
                 grid-template-columns: 1fr;
             }
@@ -1456,6 +1454,120 @@
             }
             .footer-top-row {
                 grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* KUMU BEACH MOBILE NAVIGATION SPECIFICATION (2-TIER ARCHITECTURE) */
+        @media (max-width: 991px) {
+            .navigation {
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: stretch;
+                border-bottom: none;
+            }
+
+            .navigation::after {
+                height: 150px;
+            }
+
+            /* Tier 1: Centered Brand Logo across the top */
+            .site-logo {
+                order: 1;
+                width: 100%;
+                height: 58px;
+                padding: 0 16px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            body.theme-light .navigation.scrolled .site-logo {
+                border-bottom: 1px solid rgba(30, 66, 27, 0.15);
+            }
+
+            .site-logo-icon {
+                width: 22px;
+                height: 28px;
+            }
+
+            .site-logo-title {
+                font-size: 13.5px;
+                letter-spacing: 3px;
+            }
+
+            .site-logo-subtitle {
+                display: none;
+            }
+
+            #desktop-menu {
+                display: none;
+            }
+
+            /* Tier 2: Left 50% Private Register Button, Right 50% Menu/Theme */
+            .kumu-book-btn {
+                order: 2;
+                width: 52%;
+                padding: 13px 6px;
+                font-size: 10.5px;
+                letter-spacing: 1.8px;
+                text-align: center;
+                justify-content: center;
+                border-left: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+                border-right: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            .nav-right-cluster {
+                order: 3;
+                width: 48%;
+                display: flex;
+                align-items: stretch;
+            }
+
+            .theme-toggle-btn {
+                width: 44px;
+                padding: 0;
+                border-left: none;
+                border-right: 1px solid rgba(255, 255, 255, 0.2);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .mega-menu-trigger {
+                flex: 1;
+                padding: 0 10px;
+                border-left: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                font-size: 10px;
+                letter-spacing: 2px;
+            }
+
+            /* Scrolled states on mobile */
+            body.theme-light .navigation.scrolled .kumu-book-btn {
+                border-bottom: 1px solid rgba(30, 66, 27, 0.15);
+                border-right: 1px solid rgba(30, 66, 27, 0.15);
+            }
+
+            body.theme-light .navigation.scrolled .theme-toggle-btn {
+                border-right: 1px solid rgba(30, 66, 27, 0.15);
+                border-bottom: 1px solid rgba(30, 66, 27, 0.15);
+            }
+
+            body.theme-light .navigation.scrolled .mega-menu-trigger {
+                border-bottom: 1px solid rgba(30, 66, 27, 0.15);
+            }
+
+            /* Hero breathing room on mobile to clear 2-tier header */
+            .hero {
+                padding-top: 140px;
+                padding-bottom: 30px;
             }
         }
 
@@ -1475,15 +1587,8 @@
             .countdown-val {
                 font-size: 17px;
             }
-            .site-logo-subtitle {
-                display: none;
-            }
-            .kumu-book-btn {
-                padding: 18px 20px;
-                font-size: 10px;
-            }
-            .mega-menu-trigger {
-                padding: 18px 16px;
+            .hero-lead-quote {
+                font-size: 18px;
             }
         }
     </style>
@@ -1493,7 +1598,7 @@
     <!-- KUMU BEACH CLEAR TRANSPARENT HEADER -->
     <header class="kumu-header">
         <nav class="navigation" id="mainNav">
-            <!-- Left: Official Logo -->
+            <!-- Left: Official Logo (Tier 1 on Mobile, Centered) -->
             <a href="#" class="site-logo">
                 <img id="navLogo" class="site-logo-icon" src="assets/botanist/botanist-emblem-white.svg" alt="The Botanist House">
                 <div class="site-logo-text">
@@ -1511,7 +1616,11 @@
                 <li><a href="#register">Register</a></li>
             </ul>
 
-            <!-- Right: Menu Drawer Toggle + Theme Toggle + Kumu Block Button -->
+            <!-- Mobile Tier 2 / Desktop Right: Kumu Block Button + Menu + Theme -->
+            <a href="#register" class="kumu-book-btn">
+                <span>PRIVATE REGISTER</span>
+            </a>
+
             <div class="nav-right-cluster">
                 <!-- Theme Toggle -->
                 <button class="theme-toggle-btn" id="themeBtn" onclick="toggleTheme()" title="Switch Light (Parchment) / Dark (Nocturne)">
@@ -1527,11 +1636,6 @@
                     </svg>
                     <span>MENU</span>
                 </button>
-
-                <!-- Kumu Signature Solid Rectangular Block Button -->
-                <a href="#register" class="kumu-book-btn">
-                    <span>PRIVATE REGISTER</span>
-                </a>
             </div>
         </nav>
     </header>
@@ -1561,10 +1665,11 @@
         </div>
     </aside>
 
-    <!-- HERO VIEWPORT (.main-banner, Full-bleed 100vh with Ambient Bubbles) -->
+    <!-- HERO VIEWPORT (.main-banner, Full-bleed 100vh with Ambient Falling Leaves) -->
     <section class="hero" id="hero">
         <div class="hero-bg"></div>
         <div class="hero-vignette"></div>
+        <!-- Ambient Botanical Falling Leaves Canvas (Taken from Logo Emblem) -->
         <canvas id="botanical-canvas"></canvas>
 
         <div class="hero-spacer-top" aria-hidden="true"></div>
@@ -1663,51 +1768,51 @@
         </div>
 
         <div class="accommodation-grid">
-            <!-- Suite 1 -->
+            <!-- Suite 1: Master Suite with Canopy Bed & Veranda -->
             <div class="suite-card">
                 <div class="suite-image-wrap">
-                    <img src="assets/images/Oceanview-Suites-630x610-1.jpg" alt="The Worthington Master Suite">
+                    <img src="assets/images/botanist/suite-worthington-master.jpg" alt="The Worthington Master Suite with Four-Poster Canopy Bed">
                 </div>
                 <div class="suite-content">
                     <div>
-                        <span class="suite-tagline">Panoramic Mountain Veranda &bull; King</span>
+                        <span class="suite-tagline">Panoramic Mountain Veranda &bull; Four-Poster Canopy King</span>
                         <h3 class="suite-title">The Worthington Master Suite</h3>
                         <p class="suite-desc">
-                            Expansive private terrace overlooking the Hanthana misty range. Features curated 1940s botanical folio illustrations, a private reading salon, hand-carved Ceylon teak furnishings, and personal estate concierge service.
+                            Expansive colonial suite overlooking the mist-clad Hanthana range. Features a hand-carved four-poster teak canopy bed, curated 1940s botanical illustrations, private veranda lounge, and personal butler service.
                         </p>
                     </div>
                     <a href="#register" class="common-link">INQUIRE SUITE &rarr;</a>
                 </div>
             </div>
 
-            <!-- Suite 2 -->
+            <!-- Suite 2: Canopy Veranda Suite -->
             <div class="suite-card">
                 <div class="suite-image-wrap">
-                    <img src="assets/images/Copy-of-tropical-studio-0038-4-1.jpg" alt="Canopy Veranda Suite">
+                    <img src="assets/images/botanist/suite-canopy-veranda.jpg" alt="Canopy Veranda Suite Lounge">
                 </div>
                 <div class="suite-content">
                     <div>
-                        <span class="suite-tagline">80-Year Ironwood Canopy View &bull; Plunge Deck</span>
+                        <span class="suite-tagline">80-Year Ironwood Canopy View &bull; High Ceilings</span>
                         <h3 class="suite-title">Canopy Veranda Suite</h3>
                         <p class="suite-desc">
-                            Perched high into the upper tree canopy. Wake to dawn birdsong and mountain mists, featuring an open-air rainwater shower, a cantilevered wooden veranda hovering above the arboretum, and natural linens.
+                            Perched high into the upper tree canopy. Wake to dawn birdsong and mountain mists, featuring an open-air rain shower, high timber ceilings, plantation shutters, and a private wooden deck hovering above the arboretum.
                         </p>
                     </div>
                     <a href="#register" class="common-link">INQUIRE SUITE &rarr;</a>
                 </div>
             </div>
 
-            <!-- Suite 3 -->
+            <!-- Suite 3: Arboretum Garden Residence -->
             <div class="suite-card">
                 <div class="suite-image-wrap">
-                    <img src="assets/images/Kumu-Bedroom-630x610-1.jpg" alt="Arboretum Garden Residence">
+                    <img src="assets/images/botanist/suite-garden-residence.jpg" alt="Arboretum Garden Residence Botanical Library Lounge">
                 </div>
                 <div class="suite-content">
                     <div>
-                        <span class="suite-tagline">Ground Garden Walkout &bull; Stone Bath</span>
+                        <span class="suite-tagline">Direct Specimen Garden Walkout &bull; Botanical Salon</span>
                         <h3 class="suite-title">Arboretum Garden Residence</h3>
                         <p class="suite-desc">
-                            Direct step-out access to the heritage specimen trail. Surrounded by heirloom Champaca and Dipterocarpus flora, with an outdoor soaking bath secluded by bamboo privacy screens and night-blooming jasmine.
+                            Direct step-out access to the heritage specimen trail. Framed by heirloom Champaca and Dipterocarpus flora, featuring an intimate reading salon with antique Ceylon botany volumes and outdoor garden soak tub.
                         </p>
                     </div>
                     <a href="#register" class="common-link">INQUIRE SUITE &rarr;</a>
@@ -1772,35 +1877,38 @@
         </div>
 
         <div class="experiences-grid">
+            <!-- Exp 1: Ceylon Hill Country Tea -->
             <div class="experience-item">
                 <div class="experience-img-wrap">
-                    <img src="assets/images/Kumubeach-dining-1-465x600-1.jpg" alt="Botanical Dining & Infusions">
+                    <img src="assets/images/botanist/exp-tea-infusions.jpg" alt="Artisanal Ceylon Hill Country Tea & Botanical Infusions">
                 </div>
-                <h3 class="experience-title">Artisanal Tea &amp; Botanical Dining</h3>
+                <h3 class="experience-title">Artisanal Ceylon Tea &amp; Botanical Infusions</h3>
                 <p class="experience-text">
-                    Hill country single-origin teas paired with fresh botanical infusions harvested from the estate herb gardens. Open-air dining with seasonal Ceylon flavors.
+                    Single-origin teas harvested from high-elevation Ceylon mountain estates, paired with garden lemongrass and wild herbs. Afternoon veranda tastings with panoramic valley views.
                 </p>
                 <a href="#register" class="common-link">LEARN MORE &rarr;</a>
             </div>
 
+            <!-- Exp 2: Cliff Hillside Horizon Pool -->
             <div class="experience-item">
                 <div class="experience-img-wrap">
-                    <img src="assets/images/Teardrop-Kumubeach-Location-1920x1000-1.jpg" alt="Horizon Hillside Pool">
+                    <img src="assets/images/botanist/exp-horizon-pool.jpg" alt="The Hillside Horizon Pool Overlooking Forest Canopies">
                 </div>
                 <h3 class="experience-title">The Hillside Horizon Pool</h3>
                 <p class="experience-text">
-                    A tranquil 20-meter infinity plunge pool suspended over the forested valley slopes, mirroring passing mountain clouds and historic canopies.
+                    Suspended naturally over the forested rockface and hillside slopes. Tranquil spring-fed waters mirroring the passing mountain mists and ancient tree canopies.
                 </p>
                 <a href="#register" class="common-link">LEARN MORE &rarr;</a>
             </div>
 
+            <!-- Exp 3: Arboretum Trail -->
             <div class="experience-item">
                 <div class="experience-img-wrap">
-                    <img src="assets/images/botanist/kandy-historic-grove.jpg" alt="Arboretum Forest Walks">
+                    <img src="assets/images/botanist/exp-arboretum-trail.jpg" alt="Guided Arboretum Forest Trails">
                 </div>
                 <h3 class="experience-title">Guided Arboretum Trails</h3>
                 <p class="experience-text">
-                    Private dawn walks through Worthington’s living specimen catalog with the resident naturalist, identifying endemic Ceylon trees and highland birdlife.
+                    Private dawn walks through Worthington’s living specimen catalog with our resident botanist, identifying rare endemic Ceylon trees, giant ferns, and highland birdlife.
                 </p>
                 <a href="#register" class="common-link">LEARN MORE &rarr;</a>
             </div>
@@ -2026,7 +2134,7 @@
             document.getElementById('registerSuccess').style.display = 'block';
         }
 
-        // 6. Ambient Floating Botanical Bubbles / Dewdrop Particles
+        // 6. Ambient Falling Botanical Leaves (Taken from the Official Logo Shape)
         const canvas = document.getElementById('botanical-canvas');
         if (canvas) {
             const ctx = canvas.getContext('2d');
@@ -2038,54 +2146,79 @@
                 height = canvas.height = window.innerHeight;
             });
 
-            const bubbleCount = 42;
-            const bubbles = [];
-            for (let i = 0; i < bubbleCount; i++) {
-                bubbles.push({
+            // Delicate leaves drifting down from the 1940s canopy
+            const leafCount = 38;
+            const leaves = [];
+            for (let i = 0; i < leafCount; i++) {
+                leaves.push({
                     x: Math.random() * width,
                     y: Math.random() * height,
-                    radius: Math.random() * 2.8 + 1.0,
-                    speedY: Math.random() * 0.45 + 0.2,
-                    speedX: (Math.random() - 0.5) * 0.3,
-                    swayOffset: Math.random() * Math.PI * 2,
-                    swaySpeed: Math.random() * 0.015 + 0.008,
-                    opacity: Math.random() * 0.45 + 0.2
+                    size: Math.random() * 4.5 + 4.0, // small subtle size: 4px to 8.5px
+                    speedY: Math.random() * 0.45 + 0.22, // gentle downward drift
+                    speedX: (Math.random() - 0.5) * 0.25,
+                    angle: Math.random() * Math.PI * 2,
+                    rotSpeed: (Math.random() - 0.5) * 0.016,
+                    sway: Math.random() * Math.PI * 2,
+                    swaySpeed: Math.random() * 0.016 + 0.008,
+                    swayAmp: Math.random() * 0.6 + 0.35,
+                    opacity: Math.random() * 0.42 + 0.22
                 });
             }
 
-            function drawBubbles() {
+            // Draw organic leaf shape matching the emblem leaf geometry
+            function drawLogoLeaf(ctx, size, opacity, isLight) {
+                ctx.beginPath();
+                // Start at base stem
+                ctx.moveTo(0, size);
+                // Right belly curve to pointed apex
+                ctx.bezierCurveTo(size * 0.74, size * 0.42, size * 0.8, -size * 0.36, 0, -size);
+                // Left belly curve back to stem
+                ctx.bezierCurveTo(-size * 0.8, -size * 0.36, -size * 0.74, size * 0.42, 0, size);
+                ctx.closePath();
+                
+                ctx.fillStyle = isLight 
+                    ? `rgba(30, 66, 27, ${opacity})` 
+                    : `rgba(255, 255, 255, ${opacity})`;
+                ctx.fill();
+
+                // Subtle delicate central spine
+                ctx.beginPath();
+                ctx.moveTo(0, size * 0.82);
+                ctx.quadraticCurveTo(size * 0.05, 0, 0, -size * 0.72);
+                ctx.strokeStyle = isLight 
+                    ? `rgba(247, 243, 235, ${opacity * 0.55})` 
+                    : `rgba(11, 17, 14, ${opacity * 0.55})`;
+                ctx.lineWidth = 0.6;
+                ctx.stroke();
+            }
+
+            function animateLeaves() {
                 ctx.clearRect(0, 0, width, height);
-
                 const isLight = document.body.classList.contains('theme-light');
-                const fillColor = isLight ? 'rgba(30, 66, 27, ' : 'rgba(255, 255, 255, ';
 
-                bubbles.forEach(b => {
-                    b.y -= b.speedY;
-                    b.swayOffset += b.swaySpeed;
-                    b.x += Math.sin(b.swayOffset) * 0.4 + b.speedX;
+                leaves.forEach(leaf => {
+                    leaf.y += leaf.speedY;
+                    leaf.sway += leaf.swaySpeed;
+                    leaf.x += Math.sin(leaf.sway) * leaf.swayAmp + leaf.speedX;
+                    leaf.angle += leaf.rotSpeed;
 
-                    if (b.y < -10) {
-                        b.y = height + 10;
-                        b.x = Math.random() * width;
+                    if (leaf.y > height + 20) {
+                        leaf.y = -20;
+                        leaf.x = Math.random() * width;
                     }
-                    if (b.x < -10) b.x = width + 10;
-                    if (b.x > width + 10) b.x = -10;
+                    if (leaf.x < -20) leaf.x = width + 20;
+                    if (leaf.x > width + 20) leaf.x = -20;
 
-                    ctx.beginPath();
-                    ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
-                    ctx.fillStyle = fillColor + b.opacity + ')';
-                    ctx.fill();
-
-                    // subtle inner glow
-                    ctx.beginPath();
-                    ctx.arc(b.x - b.radius * 0.3, b.y - b.radius * 0.3, b.radius * 0.35, 0, Math.PI * 2);
-                    ctx.fillStyle = isLight ? 'rgba(255, 255, 255, 0.6)' : 'rgba(255, 255, 255, 0.75)';
-                    ctx.fill();
+                    ctx.save();
+                    ctx.translate(leaf.x, leaf.y);
+                    ctx.rotate(leaf.angle);
+                    drawLogoLeaf(ctx, leaf.size, leaf.opacity, isLight);
+                    ctx.restore();
                 });
 
-                requestAnimationFrame(drawBubbles);
+                requestAnimationFrame(animateLeaves);
             }
-            drawBubbles();
+            animateLeaves();
         }
     </script>
 </body>
