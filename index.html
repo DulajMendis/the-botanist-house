@@ -98,7 +98,7 @@
         }
 
         /* -------------------------------------------------------------
-           KUMU BEACH REFERENCE SIGNATURE: COMMON-LINK (Expanding Underline)
+           EDITORIAL SIGNATURE: COMMON-LINK (Expanding Underline)
         ------------------------------------------------------------- */
         .common-link {
             position: relative;
@@ -153,9 +153,9 @@
         }
 
         /* -------------------------------------------------------------
-           KUMU BEACH HEADER NAVIGATION (Clear Transparent with Hairline)
+           HEADER NAVIGATION (Clear Transparent with Hairline)
         ------------------------------------------------------------- */
-        header.kumu-header {
+        header.site-header {
             position: relative;
             width: 100%;
         }
@@ -397,8 +397,8 @@
             color: var(--botanist-green);
         }
 
-        /* Kumu Beach Signature Solid Block Button: BOOK / PRIVATE REGISTER */
-        .kumu-book-btn {
+        /* Signature Solid Block Button: BOOK / PRIVATE REGISTER */
+        .site-book-btn {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -419,24 +419,24 @@
             white-space: nowrap;
         }
 
-        .kumu-book-btn:hover {
+        .site-book-btn:hover {
             background-color: var(--botanist-green-light);
             color: var(--accent-gold);
         }
 
-        body.theme-light .navigation.scrolled .kumu-book-btn {
+        body.theme-light .navigation.scrolled .site-book-btn {
             background-color: var(--botanist-green);
             border-left: 1px solid rgba(30, 66, 27, 0.15);
             color: #ffffff;
         }
 
-        body.theme-light .navigation.scrolled .kumu-book-btn:hover {
+        body.theme-light .navigation.scrolled .site-book-btn:hover {
             background-color: #2e6229;
             color: #ffffff;
         }
 
         /* -------------------------------------------------------------
-           SLIDE-OUT MEGA MENU DRAWER (Kumu Beach Style)
+           SLIDE-OUT MEGA MENU DRAWER
         ------------------------------------------------------------- */
         .drawer-overlay {
             position: fixed;
@@ -735,7 +735,7 @@
             font-size: 16px;
         }
 
-        /* Signature Editorial Link & Clean Kumu Button */
+        /* Signature Editorial Link & Clean Button */
         .hero-actions {
             display: flex;
             align-items: center;
@@ -858,7 +858,7 @@
 
         /* -------------------------------------------------------------
            SECTION 1: THE WELCOME / ESTATE HERITAGE (.hm-prop-welcome)
-           (Asymmetric Overlapping Architectural Layout matching Kumu)
+           (Asymmetric Overlapping Architectural Layout)
         ------------------------------------------------------------- */
         .hm-prop-welcome {
             position: relative;
@@ -1248,7 +1248,7 @@
             margin: 0 auto 36px;
         }
 
-        .kumu-form-grid {
+        .register-form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
@@ -1273,8 +1273,8 @@
             opacity: 0.75;
         }
 
-        .kumu-input,
-        .kumu-select {
+        .register-input,
+        .register-select {
             width: 100%;
             background: transparent;
             border: 1px solid var(--border);
@@ -1287,17 +1287,17 @@
             transition: border-color 0.3s ease;
         }
 
-        .kumu-input:focus,
-        .kumu-select:focus {
+        .register-input:focus,
+        .register-select:focus {
             border-color: var(--accent-gold);
         }
 
-        body.theme-light .kumu-input:focus,
-        body.theme-light .kumu-select:focus {
+        body.theme-light .register-input:focus,
+        body.theme-light .register-select:focus {
             border-color: var(--botanist-green);
         }
 
-        .kumu-select option {
+        .register-select option {
             background-color: var(--surface);
             color: var(--text);
         }
@@ -1347,9 +1347,9 @@
         }
 
         /* -------------------------------------------------------------
-           FOOTER (Kumu Beach Structured Multi-Column Footer)
+           ESTATE FOOTER (Multi-Column Layout)
         ------------------------------------------------------------- */
-        footer.kumu-footer {
+        footer.estate-footer {
             background-color: var(--surface);
             border-top: 1px solid var(--border);
             padding: 80px 6% 40px;
@@ -1441,7 +1441,7 @@
         }
 
         /* -------------------------------------------------------------
-           RESPONSIVE BREAKPOINTS (Matching Kumu Beach Mobile Architecture)
+           RESPONSIVE BREAKPOINTS (Mobile Two-Tier Architecture)
         ------------------------------------------------------------- */
         @media (max-width: 1024px) {
             .welcome-inner {
@@ -1457,7 +1457,7 @@
             }
         }
 
-        /* KUMU BEACH MOBILE NAVIGATION SPECIFICATION (2-TIER ARCHITECTURE) */
+        /* MOBILE NAVIGATION SPECIFICATION (2-TIER ARCHITECTURE) */
         @media (max-width: 991px) {
             .navigation {
                 flex-direction: row;
@@ -1505,7 +1505,7 @@
             }
 
             /* Tier 2: Left 50% Private Register Button, Right 50% Menu/Theme */
-            .kumu-book-btn {
+            .site-book-btn {
                 order: 2;
                 width: 52%;
                 padding: 13px 6px;
@@ -1550,7 +1550,7 @@
             }
 
             /* Scrolled states on mobile */
-            body.theme-light .navigation.scrolled .kumu-book-btn {
+            body.theme-light .navigation.scrolled .site-book-btn {
                 border-bottom: 1px solid rgba(30, 66, 27, 0.15);
                 border-right: 1px solid rgba(30, 66, 27, 0.15);
             }
@@ -1572,7 +1572,7 @@
         }
 
         @media (max-width: 680px) {
-            .kumu-form-grid {
+            .register-form-grid {
                 grid-template-columns: 1fr;
             }
             .form-group.full-width {
@@ -1595,8 +1595,8 @@
 </head>
 <body class="theme-dark">
 
-    <!-- KUMU BEACH CLEAR TRANSPARENT HEADER -->
-    <header class="kumu-header">
+    <!-- SITE CLEAR TRANSPARENT HEADER -->
+    <header class="site-header">
         <nav class="navigation" id="mainNav">
             <!-- Left: Official Logo (Tier 1 on Mobile, Centered) -->
             <a href="#" class="site-logo">
@@ -1616,8 +1616,8 @@
                 <li><a href="#register">Register</a></li>
             </ul>
 
-            <!-- Mobile Tier 2 / Desktop Right: Kumu Block Button + Menu + Theme -->
-            <a href="#register" class="kumu-book-btn">
+            <!-- Mobile Tier 2 / Desktop Right: Block Button + Menu + Theme -->
+            <a href="#register" class="site-book-btn">
                 <span>PRIVATE REGISTER</span>
             </a>
 
@@ -1640,7 +1640,7 @@
         </nav>
     </header>
 
-    <!-- SLIDE-OUT MEGA MENU DRAWER (Kumu Reference) -->
+    <!-- SLIDE-OUT MEGA MENU DRAWER -->
     <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
     <aside class="mega-drawer" id="megaDrawer">
         <div>
@@ -1709,7 +1709,7 @@
                 </div>
             </div>
 
-            <!-- Kumu Beach Styled Actions -->
+            <!-- Hero Actions -->
             <div class="hero-actions">
                 <a href="#register" class="btn-minimal">JOIN PRIVATE REGISTER</a>
                 <a href="#welcome" class="common-link">THE WORTHINGTON STORY &rarr;</a>
@@ -1725,7 +1725,7 @@
         </div>
     </section>
 
-    <!-- SECTION 1: THE WELCOME / ESTATE HERITAGE (.hm-prop-welcome, Kumu Asymmetric 2-Col) -->
+    <!-- SECTION 1: THE WELCOME / ESTATE HERITAGE (.hm-prop-welcome, Asymmetric 2-Col) -->
     <section class="hm-prop-welcome" id="welcome">
         <div class="welcome-inner">
             <!-- Left Overlapping Card -->
@@ -1925,20 +1925,20 @@
             </p>
 
             <form id="registerForm" onsubmit="handleRegistration(event)">
-                <div class="kumu-form-grid">
+                <div class="register-form-grid">
                     <div class="form-group">
                         <label class="form-label" for="regName">Full Name</label>
-                        <input type="text" id="regName" class="kumu-input" placeholder="Your name" required>
+                        <input type="text" id="regName" class="register-input" placeholder="Your name" required>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="regEmail">Email Address</label>
-                        <input type="email" id="regEmail" class="kumu-input" placeholder="name@domain.com" required>
+                        <input type="email" id="regEmail" class="register-input" placeholder="name@domain.com" required>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label" for="regSuite">Preferred Residence</label>
-                        <select id="regSuite" class="kumu-select">
+                        <select id="regSuite" class="register-select">
                             <option value="Worthington Master Suite">The Worthington Master Suite</option>
                             <option value="Canopy Veranda Suite">Canopy Veranda Suite</option>
                             <option value="Arboretum Garden Residence">Arboretum Garden Residence</option>
@@ -1948,7 +1948,7 @@
 
                     <div class="form-group">
                         <label class="form-label" for="regPeriod">Target Visit Window (2027)</label>
-                        <select id="regPeriod" class="kumu-select">
+                        <select id="regPeriod" class="register-select">
                             <option value="January – March 2027 (Opening Season)">January &ndash; March 2027 (Inaugural)</option>
                             <option value="April – June 2027">April &ndash; June 2027</option>
                             <option value="July – September 2027">July &ndash; September 2027</option>
@@ -1977,8 +1977,8 @@
         </div>
     </section>
 
-    <!-- FOOTER (Kumu Beach Structured Multi-Column Footer) -->
-    <footer class="kumu-footer">
+    <!-- ESTATE FOOTER (Multi-Column Layout) -->
+    <footer class="estate-footer">
         <div class="footer-top-row">
             <!-- Brand Column -->
             <div class="footer-brand-col">
@@ -2027,7 +2027,7 @@
 
         <div class="footer-bottom-bar">
             <div>&copy; 2027 The Botanist House. All rights reserved.</div>
-            <div>Inspired by Ceylon botanical heritage &bull; Teardrop luxury boutique style</div>
+            <div>Ceylon Botanical Heritage &bull; Kandy Hills, Sri Lanka</div>
         </div>
     </footer>
 
